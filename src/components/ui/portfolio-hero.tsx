@@ -85,6 +85,7 @@ const BlurText: React.FC<BlurTextProps> = ({
 };
 
 export default function Component() {
+  const [activeSection, setActiveSection] = useState("HOME");
   const [isDark, setIsDark] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -92,6 +93,30 @@ export default function Component() {
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 250;
+      const sections = [
+        { name: "HOME", el: document.getElementById("hero") },
+        { name: "ABOUT", el: document.getElementById("about") },
+        { name: "SOCIAL MEDIA", el: document.getElementById("socials") || document.getElementById("contact") },
+      ];
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.el && section.el.offsetTop <= scrollPosition) {
+          setActiveSection(section.name);
+          return;
+        }
+      }
+      setActiveSection("HOME");
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -122,18 +147,26 @@ export default function Component() {
   };
 
   const menuItems = [
-    { label: "HOME", href: "#", highlight: true },
+    { label: "HOME", href: "#hero" },
     { label: "ABOUT", href: "#about" },
+    { label: "SOCIAL MEDIA", href: "#socials" },
     { label: "PROJECTS", href: "#projects" },
     { label: "EXPERIENCE", href: "#experience" },
     { label: "EDUCATION", href: "#education" },
     { label: "WRITING", href: "#writing" },
-    { label: "CONTACT", href: "#contact" },
+    { label: "CONTACT", href: "#socials" },
   ];
+
+  const isItemActive = (label: string) => {
+    if (activeSection === label) return true;
+    if (label === "CONTACT" && activeSection === "SOCIAL MEDIA") return true;
+    return false;
+  };
 
   return (
     <div 
-      className="min-h-screen text-foreground transition-colors"
+      id="hero"
+      className="min-h-screen text-foreground transition-colors overflow-x-hidden"
       style={{
         backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)",
         color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
@@ -166,34 +199,47 @@ export default function Component() {
                   backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)",
                 }}
               >
-                {menuItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="block text-lg md:text-xl font-bold tracking-tight py-1.5 px-2 cursor-pointer transition-colors duration-300"
-                    style={{
-                      color: item.highlight ? "#C3E41D" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = "#C3E41D";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = item.highlight ? "#C3E41D" : (isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)");
-                    }}
-                    onClick={(e) => {
-                      setIsMenuOpen(false);
-                      if (item.href === "#about") {
+                {menuItems.map((item) => {
+                  const isActive = isItemActive(item.label);
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="block text-lg md:text-xl font-bold tracking-tight py-1.5 px-2 cursor-pointer transition-colors duration-300"
+                      style={{
+                        color: isActive ? "#C3E41D" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "#C3E41D";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = isActive
+                          ? "#C3E41D"
+                          : isDark
+                          ? "hsl(0 0% 100%)"
+                          : "hsl(0 0% 10%)";
+                      }}
+                      onClick={(e) => {
+                        setIsMenuOpen(false);
                         e.preventDefault();
-                        document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-                      } else if (item.href === "#") {
-                        e.preventDefault();
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      }
-                    }}
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                        if (item.href === "#about") {
+                          document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+                        } else if (item.href === "#socials" || item.href === "#contact") {
+                          (document.getElementById("socials") || document.getElementById("contact"))?.scrollIntoView({ behavior: "smooth" });
+                        } else if (item.href === "#" || item.href === "#hero") {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        } else {
+                          const target = document.querySelector(item.href);
+                          if (target) {
+                            target.scrollIntoView({ behavior: "smooth" });
+                          }
+                        }
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -223,7 +269,7 @@ export default function Component() {
       </header>
 
       {/* Hero Section */}
-      <main className="relative min-h-screen flex flex-col">
+      <main className="relative min-h-screen flex flex-col overflow-x-hidden">
         {/* Centered Main Name - Always Perfectly Centered */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4">
           <div className="relative text-center">

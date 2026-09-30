@@ -47,7 +47,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen py-24 px-6 md:px-12 lg:px-20 transition-colors duration-300 bg-neutral-50 dark:bg-black text-neutral-900 dark:text-neutral-100"
+      className="relative min-h-screen py-24 px-6 md:px-12 lg:px-20 transition-colors duration-300 bg-neutral-50 dark:bg-black text-neutral-900 dark:text-neutral-100 overflow-hidden"
     >
       {/* Background Subtle Accent Glow */}
       <div
@@ -229,7 +229,15 @@ export default function AboutSection() {
                 </div>
                 <div className="pl-4">
                   <span className="text-neutral-400">status:</span>{" "}
-                  <span className="text-yellow-300">"Active Student"</span>
+                  <span className="text-yellow-300">"Active Student"</span>,
+                </div>
+                <div className="pl-4">
+                  <span className="text-neutral-400">github:</span>{" "}
+                  <span className="text-emerald-400">"rramadhaan15"</span>,
+                </div>
+                <div className="pl-4">
+                  <span className="text-neutral-400">email:</span>{" "}
+                  <span className="text-emerald-400">"rizkiramadhan2175@gmail.com"</span>
                 </div>
                 <div>&#125;;</div>
                 <div className="pt-2 text-neutral-500 flex items-center gap-1">

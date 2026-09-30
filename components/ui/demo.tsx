@@ -1,5 +1,6 @@
 import React from "react";
 import Component from "@/components/ui/portfolio-hero";
+import { DemoOne } from "@/components/ui/flip-links-demo";
 
 export default function Demo() {
   return (
@@ -14,3 +15,6 @@ export default function Demo() {
     </>
   );
 }
+
+export { DemoOne };
+
