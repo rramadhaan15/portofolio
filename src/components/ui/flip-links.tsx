@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { Copy, Check } from "lucide-react";
+import React from "react";
 
 export const Component = () => {
-  const [copied, setCopied] = useState(false);
 
   const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -63,33 +61,6 @@ export const Component = () => {
         >
           Email
         </FlipLink>
-      </div>
-
-      {/* Quick Direct Email & Copy Action */}
-      <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 relative z-10 text-xs font-mono text-neutral-500">
-        <span>Atau salin alamat email:</span>
-        <button
-          type="button"
-          onClick={() => {
-            navigator.clipboard.writeText("rizkiramadhan2175@gmail.com");
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-          }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 hover:border-[#C3E41D] hover:text-[#C3E41D] transition-all cursor-pointer shadow-sm"
-          title="Klik untuk menyalin email"
-        >
-          {copied ? (
-            <>
-              <Check className="w-3.5 h-3.5" style={{ color: "#C3E41D" }} />
-              <span style={{ color: "#C3E41D" }}>Email Berhasil Disalin!</span>
-            </>
-          ) : (
-            <>
-              <Copy className="w-3.5 h-3.5" />
-              <span className="text-neutral-700 dark:text-neutral-300">rizkiramadhan2175@gmail.com</span>
-            </>
-          )}
-        </button>
       </div>
     </section>
   );
