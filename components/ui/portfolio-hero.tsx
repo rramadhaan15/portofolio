@@ -123,12 +123,12 @@ export default function Component() {
 
   const menuItems = [
     { label: "HOME", href: "#", highlight: true },
-    { label: "ABOUT", href: "#" },
-    { label: "PROJECTS", href: "#" },
-    { label: "EXPERIENCE", href: "#" },
-    { label: "EDUCATION", href: "#" },
-    { label: "WRITING", href: "#" },
-    { label: "CONTACT", href: "#" },
+    { label: "ABOUT", href: "#about" },
+    { label: "PROJECTS", href: "#projects" },
+    { label: "EXPERIENCE", href: "#experience" },
+    { label: "EDUCATION", href: "#education" },
+    { label: "WRITING", href: "#writing" },
+    { label: "CONTACT", href: "#contact" },
   ];
 
   return (
@@ -180,7 +180,16 @@ export default function Component() {
                     onMouseLeave={(e) => {
                       e.currentTarget.style.color = item.highlight ? "#C3E41D" : (isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)");
                     }}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => {
+                      setIsMenuOpen(false);
+                      if (item.href === "#about") {
+                        e.preventDefault();
+                        document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+                      } else if (item.href === "#") {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }
+                    }}
                   >
                     {item.label}
                   </a>
@@ -245,7 +254,11 @@ export default function Component() {
                 <img
                   src="/profile.jpg"
                   alt="Rizki Ramadhan"
-                  className="w-full h-full object-cover object-[center_35%]"
+                  className="w-full h-full object-cover"
+                  style={{
+                    transform: "scale(1.55)",
+                    transformOrigin: "50% 40%",
+                  }}
                 />
               </div>
             </div>
@@ -269,8 +282,9 @@ export default function Component() {
         {/* Scroll Indicator */}
         <button
           type="button"
-          className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 transition-colors duration-300"
-          aria-label="Scroll down"
+          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+          className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 transition-all duration-300 cursor-pointer animate-bounce hover:scale-125"
+          aria-label="Scroll down to About"
         >
           <ChevronDown className="w-5 h-5 md:w-8 md:h-8 text-neutral-500 hover:text-black dark:hover:text-white transition-colors duration-300" />
         </button>
