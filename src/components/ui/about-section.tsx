@@ -4,7 +4,7 @@ import {
   Terminal,
   ArrowUpRight,
   CheckCircle2,
-  GraduationCap,
+  Fingerprint,
   ShieldCheck,
   BarChart3,
   Globe,
@@ -88,8 +88,8 @@ export default function AboutSection() {
           <div className="lg:col-span-7 space-y-6">
             <div className="p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800/80 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-xl shadow-xl">
               <div className="flex items-center gap-3.5 mb-6">
-                <div className="p-3 rounded-xl bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-800">
-                  <GraduationCap className="w-6 h-6" style={{ color: "#C3E41D" }} />
+                <div className="p-3 rounded-xl bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-800 shadow-sm shadow-[#C3E41D]/10">
+                  <Fingerprint className="w-6 h-6 transition-transform duration-300 hover:scale-110" style={{ color: "#C3E41D" }} />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold font-mono">Rizki Ramadhan</h3>

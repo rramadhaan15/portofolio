@@ -294,17 +294,39 @@ export default function Component() {
               />
             </div>
 
-            {/* Profile Picture */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer">
+            {/* Cutout Portrait (No Background) in front of text */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
+              <div className="relative group transition-transform duration-500 ease-out hover:scale-105 cursor-pointer">
+                {/* Subtle Neon Aura Glow Behind Figure */}
+                <div
+                  className="pointer-events-none absolute inset-x-4 top-1/4 bottom-8 rounded-full blur-3xl opacity-20 -z-10 transition-opacity duration-300 group-hover:opacity-35"
+                  style={{ backgroundColor: "#C3E41D" }}
+                />
+
                 <img
-                  src="/profile.jpg"
+                  src="/profile-cutout.png"
                   alt="Rizki Ramadhan"
-                  className="w-full h-full object-cover"
+                  className="h-[180px] sm:h-[260px] md:h-[340px] lg:h-[400px] xl:h-[440px] w-auto max-w-none object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)] select-none pointer-events-none"
                   style={{
-                    transform: "scale(1.55)",
-                    transformOrigin: "50% 40%",
+                    maskImage: "linear-gradient(to bottom, black 60%, transparent 96%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 96%)",
                   }}
+                />
+
+                {/* Smooth Bottom Fade-out Gradient to eliminate harsh straight edge */}
+                <div
+                  className="pointer-events-none absolute bottom-0 left-0 right-0 h-16 sm:h-24 transition-colors"
+                  style={{
+                    background: isDark
+                      ? "linear-gradient(to bottom, transparent, hsl(0 0% 0% / 0.85) 75%, hsl(0 0% 0%))"
+                      : "linear-gradient(to bottom, transparent, hsl(0 0% 98% / 0.85) 75%, hsl(0 0% 98%))",
+                  }}
+                />
+
+                {/* Subtle Glow at base to anchor the figure */}
+                <div
+                  className="pointer-events-none absolute -bottom-1 left-1/2 -translate-x-1/2 w-4/5 h-8 rounded-full blur-2xl opacity-25 -z-10"
+                  style={{ backgroundColor: "#C3E41D" }}
                 />
               </div>
             </div>
