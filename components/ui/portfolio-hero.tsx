@@ -191,7 +191,7 @@ export default function Component() {
 
           {/* Signature */}
           <div className="text-4xl" style={{ color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)", fontFamily: "'Brush Script MT', 'Lucida Handwriting', cursive" }}>
-            A
+            R
           </div>
 
           {/* Theme Toggle */}
@@ -220,21 +220,21 @@ export default function Component() {
           <div className="relative text-center">
             <div>
               <BlurText
-                text="ALEX"
+                text="RIZKI"
                 delay={100}
                 animateBy="letters"
                 direction="top"
-                className="font-bold text-[100px] sm:text-[140px] md:text-[180px] lg:text-[210px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
+                className="font-bold text-[55px] min-[420px]:text-[75px] sm:text-[110px] md:text-[150px] lg:text-[190px] xl:text-[210px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
                 style={{ color: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
               />
             </div>
             <div>
               <BlurText
-                text="KANE"
+                text="RAMADHAN"
                 delay={100}
                 animateBy="letters"
                 direction="top"
-                className="font-bold text-[100px] sm:text-[140px] md:text-[180px] lg:text-[210px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
+                className="font-bold text-[55px] min-[420px]:text-[75px] sm:text-[110px] md:text-[150px] lg:text-[190px] xl:text-[210px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
                 style={{ color: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
               />
             </div>
@@ -242,11 +242,10 @@ export default function Component() {
             {/* Profile Picture */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
               <div className="w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer">
-                {/* Anda dapat mengganti URL gambar ini dengan foto Anda sendiri nanti */}
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop"
-                  alt="Profile"
-                  className="w-full h-full object-cover"
+                  src="/profile.jpg"
+                  alt="Rizki Ramadhan"
+                  className="w-full h-full object-cover object-[center_35%]"
                 />
               </div>
             </div>
