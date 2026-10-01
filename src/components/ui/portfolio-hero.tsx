@@ -101,6 +101,8 @@ export default function Component() {
       const sections = [
         { name: "HOME", el: document.getElementById("hero") },
         { name: "ABOUT", el: document.getElementById("about") },
+        { name: "EDUCATION", el: document.getElementById("education") },
+        { name: "EXPERIENCE", el: document.getElementById("experience") },
         { name: "SOCIAL MEDIA", el: document.getElementById("socials") || document.getElementById("contact") },
       ];
 
@@ -149,10 +151,10 @@ export default function Component() {
   const menuItems = [
     { label: "HOME", href: "#hero" },
     { label: "ABOUT", href: "#about" },
+    { label: "EDUCATION", href: "#education" },
+    { label: "EXPERIENCE", href: "#experience" },
     { label: "SOCIAL MEDIA", href: "#socials" },
     { label: "PROJECTS", href: "#projects" },
-    { label: "EXPERIENCE", href: "#experience" },
-    { label: "EDUCATION", href: "#education" },
     { label: "WRITING", href: "#writing" },
     { label: "CONTACT", href: "#socials" },
   ];
@@ -224,6 +226,8 @@ export default function Component() {
                         e.preventDefault();
                         if (item.href === "#about") {
                           document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+                        } else if (item.href === "#education") {
+                          document.getElementById("education")?.scrollIntoView({ behavior: "smooth" });
                         } else if (item.href === "#socials" || item.href === "#contact") {
                           (document.getElementById("socials") || document.getElementById("contact"))?.scrollIntoView({ behavior: "smooth" });
                         } else if (item.href === "#" || item.href === "#hero") {
@@ -299,34 +303,14 @@ export default function Component() {
               <div className="relative group transition-transform duration-500 ease-out hover:scale-105 cursor-pointer">
                 {/* Subtle Neon Aura Glow Behind Figure */}
                 <div
-                  className="pointer-events-none absolute inset-x-4 top-1/4 bottom-8 rounded-full blur-3xl opacity-20 -z-10 transition-opacity duration-300 group-hover:opacity-35"
+                  className="pointer-events-none absolute inset-x-4 top-1/4 bottom-16 rounded-full blur-3xl opacity-20 -z-10 transition-opacity duration-300 group-hover:opacity-35"
                   style={{ backgroundColor: "#C3E41D" }}
                 />
 
                 <img
                   src="/profile-cutout.png"
                   alt="Rizki Ramadhan"
-                  className="h-[180px] sm:h-[260px] md:h-[340px] lg:h-[400px] xl:h-[440px] w-auto max-w-none object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)] select-none pointer-events-none"
-                  style={{
-                    maskImage: "linear-gradient(to bottom, black 60%, transparent 96%)",
-                    WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 96%)",
-                  }}
-                />
-
-                {/* Smooth Bottom Fade-out Gradient to eliminate harsh straight edge */}
-                <div
-                  className="pointer-events-none absolute bottom-0 left-0 right-0 h-16 sm:h-24 transition-colors"
-                  style={{
-                    background: isDark
-                      ? "linear-gradient(to bottom, transparent, hsl(0 0% 0% / 0.85) 75%, hsl(0 0% 0%))"
-                      : "linear-gradient(to bottom, transparent, hsl(0 0% 98% / 0.85) 75%, hsl(0 0% 98%))",
-                  }}
-                />
-
-                {/* Subtle Glow at base to anchor the figure */}
-                <div
-                  className="pointer-events-none absolute -bottom-1 left-1/2 -translate-x-1/2 w-4/5 h-8 rounded-full blur-2xl opacity-25 -z-10"
-                  style={{ backgroundColor: "#C3E41D" }}
+                  className="h-[200px] sm:h-[285px] md:h-[370px] lg:h-[440px] xl:h-[480px] w-auto max-w-none object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.4)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)] select-none pointer-events-none"
                 />
               </div>
             </div>
