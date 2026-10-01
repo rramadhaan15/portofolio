@@ -6,6 +6,7 @@ import {
   MapPin,
   Calendar,
 } from "lucide-react";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
 export default function EducationSection() {
   const educationData: TimelineEntry[] = [
@@ -37,10 +38,15 @@ export default function EducationSection() {
               </div>
             </div>
 
-            <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-sm md:text-base font-sans mb-6">
-              Mendalami perancangan sistem informasi terintegrasi, arsitektur aplikasi berbasis web modern,
-              keamanan siber (*Cybersecurity*), dan analisis data (*Business Intelligence*) untuk solusi teknologi efisien.
-            </p>
+            <TextGenerateEffect
+              as="p"
+              className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-sm md:text-base font-sans mb-6"
+              filter
+              staggerDuration={0.018}
+              transition={{ duration: 0.25 }}
+            >
+              {"Mendalami perancangan sistem informasi terintegrasi, arsitektur aplikasi berbasis web modern, keamanan siber (__Cybersecurity__), dan analisis data (__Business Intelligence__) untuk solusi teknologi efisien."}
+            </TextGenerateEffect>
 
             {/* Core Competencies Learned */}
             <div className="mb-6">
@@ -120,11 +126,15 @@ export default function EducationSection() {
               </div>
             </div>
 
-            <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-sm md:text-base font-sans mb-6">
-              Membangun fondasi logika berpikir dan penalaran ilmiah di sekolah, sekaligus aktif mendalami
-              dunia teknologi komputer dan ekosistem digital secara otodidak melalui platform edukasi YouTube,
-              dokumentasi teknis, serta berbagai proyek <span className="text-[#a8cc0e] dark:text-[#C3E41D] font-medium">open source</span> di internet.
-            </p>
+            <TextGenerateEffect
+              as="p"
+              className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-sm md:text-base font-sans mb-6"
+              filter
+              staggerDuration={0.018}
+              transition={{ duration: 0.25 }}
+            >
+              {"Membangun fondasi logika berpikir dan penalaran ilmiah di sekolah, sekaligus aktif mendalami dunia teknologi komputer dan ekosistem digital secara otodidak melalui platform edukasi YouTube, dokumentasi teknis, serta berbagai proyek __open source__ di internet."}
+            </TextGenerateEffect>
 
             <div className="flex flex-wrap gap-2 mb-6">
               {[

@@ -9,6 +9,7 @@ import {
   BarChart3,
   Globe,
 } from "lucide-react";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
 export default function AboutSection() {
   const skills = [
@@ -103,27 +104,32 @@ export default function AboutSection() {
                 className="space-y-4 text-neutral-700 dark:text-neutral-300 leading-relaxed text-base md:text-lg"
                 style={{ fontFamily: "'Antic', sans-serif" }}
               >
-                <p>
-                  Halo! Saya <span className="font-semibold text-neutral-950 dark:text-white">Rizki Ramadhan</span>, mahasiswa program studi <span className="font-semibold text-neutral-950 dark:text-white">D3 Sistem Informasi di Universitas Pembangunan Nasional "Veteran" Jakarta (UPNVJ)</span>.
-                </p>
-                <p>
-                  Saya memiliki ketertarikan dan antusiasme tinggi di dunia teknologi digital, khususnya dalam bidang{" "}
-                  <span className="font-semibold text-neutral-950 dark:text-white underline decoration-2 underline-offset-4" style={{ textDecorationColor: "#C3E41D" }}>
-                    Web Development
-                  </span>
-                  ,{" "}
-                  <span className="font-semibold text-neutral-950 dark:text-white underline decoration-2 underline-offset-4" style={{ textDecorationColor: "#C3E41D" }}>
-                    Cybersecurity
-                  </span>
-                  , serta{" "}
-                  <span className="font-semibold text-neutral-950 dark:text-white underline decoration-2 underline-offset-4" style={{ textDecorationColor: "#C3E41D" }}>
-                    Business Intelligence
-                  </span>
-                  .
-                </p>
-                <p>
-                  Melalui perkuliahan dan eksplorasi mandiri, saya aktif mengasah keahlian membangun antarmuka web interaktif yang modern, memahami arsitektur keamanan sistem informasi untuk melindungi data, serta mengolah data mentah menjadi wawasan bisnis yang bernilai strategis.
-                </p>
+                <TextGenerateEffect
+                  as="p"
+                  filter
+                  staggerDuration={0.015}
+                  transition={{ duration: 0.25 }}
+                >
+                  {'Halo! Saya **Rizki Ramadhan**, mahasiswa program studi **D3 Sistem Informasi di Universitas Pembangunan Nasional "Veteran" Jakarta (UPNVJ)**.'}
+                </TextGenerateEffect>
+
+                <TextGenerateEffect
+                  as="p"
+                  filter
+                  staggerDuration={0.015}
+                  transition={{ duration: 0.25 }}
+                >
+                  {'Saya memiliki ketertarikan dan antusiasme tinggi di dunia teknologi digital, khususnya dalam bidang __Web Development__, __Cybersecurity__, serta __Business Intelligence__.'}
+                </TextGenerateEffect>
+
+                <TextGenerateEffect
+                  as="p"
+                  filter
+                  staggerDuration={0.015}
+                  transition={{ duration: 0.25 }}
+                >
+                  {'Melalui perkuliahan dan eksplorasi mandiri, saya aktif mengasah keahlian membangun antarmuka web interaktif yang modern, memahami arsitektur keamanan sistem informasi untuk melindungi data, serta mengolah data mentah menjadi wawasan bisnis yang bernilai strategis.'}
+                </TextGenerateEffect>
               </div>
 
               {/* Status Badge */}
@@ -162,7 +168,15 @@ export default function AboutSection() {
                   >
                     <Icon className="w-5 h-5 mb-3" style={{ color: "#C3E41D" }} />
                     <h4 className="font-bold text-sm font-mono mb-1.5">{item.title}</h4>
-                    <p className="text-xs text-neutral-500 leading-normal">{item.desc}</p>
+                    <TextGenerateEffect
+                      as="p"
+                      className="text-xs text-neutral-500 leading-normal font-sans"
+                      filter
+                      staggerDuration={0.015}
+                      transition={{ duration: 0.25 }}
+                    >
+                      {item.desc}
+                    </TextGenerateEffect>
                   </div>
                 );
               })}
