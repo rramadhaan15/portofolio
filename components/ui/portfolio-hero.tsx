@@ -97,29 +97,87 @@ export default function Component() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 250;
-      const sections = [
-        { name: "HOME", el: document.getElementById("hero") },
-        { name: "ABOUT", el: document.getElementById("about") },
-        { name: "EDUCATION", el: document.getElementById("education") },
-        { name: "EXPERIENCE", el: document.getElementById("experience") },
-        { name: "PROJECTS", el: document.getElementById("projects") },
-        { name: "SOCIAL MEDIA", el: document.getElementById("socials") || document.getElementById("contact") },
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // 1. Extreme Top Boundary (Hero / Home)
+      if (scrollY < 120) {
+        setActiveSection("HOME");
+        return;
+      }
+
+      // 2. Extreme Bottom Boundary (Social Media / Contact)
+      if (scrollY + viewportHeight >= documentHeight - 120) {
+        setActiveSection("SOCIAL MEDIA");
+        return;
+      }
+
+      // 3. Section Definitions (in exact vertical DOM order)
+      const sectionDefinitions = [
+        { name: "HOME", id: "hero" },
+        { name: "ABOUT", id: "about" },
+        { name: "EDUCATION", id: "education" },
+        { name: "EXPERIENCE", id: "experience" },
+        { name: "PROJECTS", id: "projects" },
+        { name: "SOCIAL MEDIA", id: "socials" },
       ];
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section.el && section.el.offsetTop <= scrollPosition) {
-          setActiveSection(section.name);
+      // Measure using user's focus point at 35% of viewport height
+      const focusPoint = viewportHeight * 0.35;
+
+      // Check each section from bottom to top
+      for (let i = sectionDefinitions.length - 1; i >= 0; i--) {
+        const { name, id } = sectionDefinitions[i];
+        const rawEl = document.getElementById(id);
+        if (!rawEl) continue;
+
+        // CRITICAL FIX: For GSAP pinned elements (like #projects), measure the .pin-spacer parent
+        // which reflects the true page scroll height and position, avoiding child offsetTop=0 bug!
+        const targetEl = (rawEl.closest(".pin-spacer") as HTMLElement) || rawEl;
+        const rect = targetEl.getBoundingClientRect();
+
+        // Check if focus point is vertically inside this section
+        if (rect.top <= focusPoint && rect.bottom > focusPoint) {
+          setActiveSection(name);
           return;
         }
       }
-      setActiveSection("HOME");
+
+      // Fallback: choose the section with the largest visible portion
+      let maxVisible = 0;
+      let dominantSection = "HOME";
+
+      for (const { name, id } of sectionDefinitions) {
+        const rawEl = document.getElementById(id);
+        if (!rawEl) continue;
+
+        const targetEl = (rawEl.closest(".pin-spacer") as HTMLElement) || rawEl;
+        const rect = targetEl.getBoundingClientRect();
+        const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+
+        if (visibleHeight > maxVisible) {
+          maxVisible = visibleHeight;
+          dominantSection = name;
+        }
+      }
+
+      if (maxVisible > 0) {
+        setActiveSection(dominantSection);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll, { passive: true });
+
+    // Initial check after slight delay to allow GSAP pins to register
+    const timer = setTimeout(handleScroll, 300);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -160,9 +218,7 @@ export default function Component() {
   ];
 
   const isItemActive = (label: string) => {
-    if (activeSection === label) return true;
-    if (label === "CONTACT" && activeSection === "SOCIAL MEDIA") return true;
-    return false;
+    return activeSection === label;
   };
 
   return (
@@ -224,18 +280,14 @@ export default function Component() {
                       onClick={(e) => {
                         setIsMenuOpen(false);
                         e.preventDefault();
-                        if (item.href === "#about") {
-                          document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-                        } else if (item.href === "#education") {
-                          document.getElementById("education")?.scrollIntoView({ behavior: "smooth" });
-                        } else if (item.href === "#socials" || item.href === "#contact") {
-                          (document.getElementById("socials") || document.getElementById("contact"))?.scrollIntoView({ behavior: "smooth" });
-                        } else if (item.href === "#" || item.href === "#hero") {
+                        setActiveSection(item.label);
+                        if (item.href === "#" || item.href === "#hero") {
                           window.scrollTo({ top: 0, behavior: "smooth" });
                         } else {
                           const target = document.querySelector(item.href);
                           if (target) {
-                            target.scrollIntoView({ behavior: "smooth" });
+                            const scrollTarget = (target.closest(".pin-spacer") as HTMLElement) || target;
+                            scrollTarget.scrollIntoView({ behavior: "smooth" });
                           }
                         }
                       }}
