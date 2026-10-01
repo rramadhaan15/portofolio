@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Layers,
   Megaphone,
@@ -6,37 +7,48 @@ import {
   Calendar,
   Building2,
   MapPin,
+  ChevronLeft,
   ChevronRight,
-  Briefcase,
+  CheckCircle2,
+  ExternalLink,
+  Sparkles,
 } from "lucide-react";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { GlowEffect } from "@/components/ui/glow-effect";
 
 interface ExperienceItem {
   id: string;
+  number: string;
+  tabLabel: string;
   title: string;
   role: string;
   company: string;
   period: string;
-  location?: string;
+  location: string;
   description: string;
   skills: string[];
   image: string;
+  imagePosition: string;
+  caption: string;
   icon: React.ReactNode;
+  glowColors: string[];
 }
 
 export default function ExperienceSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [animatedOptions, setAnimatedOptions] = useState<number[]>([]);
 
   const experiences: ExperienceItem[] = [
     {
       id: "system-analyst-kemenperin",
+      number: "01",
+      tabLabel: "System Analyst",
       title: "System Analyst",
       role: "Internship • System Analyst",
       company: "Kementerian Perindustrian Republik Indonesia",
       period: "Sep 2026 — Present",
       location: "Gatot Subroto, Jakarta • On-site",
       description:
-        "Menganalisis kebutuhan sistem perangkat lunak, memetakan alur proses bisnis digital, serta merumuskan spesifikasi teknis dan fungsional sistem informasi di lingkungan Kementerian Perindustrian RI untuk mendukung efisiensi operasional dan tata kelola digital.",
+        "Menganalisis kebutuhan sistem perangkat lunak, memetakan alur proses bisnis digital, serta merumuskan spesifikasi teknis dan fungsional sistem informasi di lingkungan Kementerian Perindustrian RI guna mewujudkan efisiensi operasional dan integrasi layanan publik yang andal.",
       skills: [
         "Software System Analysis",
         "Systems Analysis",
@@ -44,18 +56,23 @@ export default function ExperienceSection() {
         "Requirement Engineering",
         "Information Systems Architecture",
       ],
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80",
-      icon: <Layers className="w-5 h-5 text-white" />,
+      image: "/experience-kemenperin.jpg",
+      imagePosition: "object-[center_35%]",
+      caption: "Dokumentasi di Kementerian Perindustrian RI",
+      icon: <Layers className="w-4 h-4" />,
+      glowColors: ["#C3E41D", "#06B6D4", "#3B82F6", "#C3E41D"],
     },
     {
       id: "head-of-pr-hima",
+      number: "02",
+      tabLabel: "Head of Public Relations",
       title: "Head of Public Relations",
       role: "Divisional Leadership",
       company: "HIMA D3SI UPNVJ - Himpunan Mahasiswa D3 Sistem Informasi",
       period: "Jan 2026 — Present",
       location: "UPN 'Veteran' Jakarta",
       description:
-        "Memimpin divisi Hubungan Masyarakat (Public Relations) dalam mengelola citra organisasi, membangun kemitraan strategis eksternal dengan berbagai stakeholder dan alumni, serta mengorkestrasi alur komunikasi publik dan branding HIMA D3SI UPNVJ.",
+        "Memimpin divisi Hubungan Masyarakat (Public Relations) dalam mengelola citra organisasi, membangun kemitraan strategis eksternal dengan berbagai institusi dan jejaring alumni, serta mengorkestrasi publikasi komunikasi publik dan branding HIMA D3SI UPNVJ.",
       skills: [
         "Public Relations",
         "Leadership",
@@ -63,49 +80,46 @@ export default function ExperienceSection() {
         "Partnership & Networking",
         "Event Management",
       ],
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80",
-      icon: <Megaphone className="w-5 h-5 text-white" />,
+      image: "/experience-hima.jpg",
+      imagePosition: "object-[center_60%]",
+      caption: "Kebersamaan Pengurus HIMA D3SI UPNVJ di Monas",
+      icon: <Megaphone className="w-4 h-4" />,
+      glowColors: ["#C3E41D", "#10B981", "#14B8A6", "#C3E41D"],
     },
     {
       id: "hpd-officer-upcome",
+      number: "03",
+      tabLabel: "HPD Officer",
       title: "HPD Officer",
       role: "Humas, Publikasi & Dokumentasi",
       company: "UPCOME 4.0",
       period: "Jun 2025 — Oct 2025",
       location: "Jakarta, Indonesia • On-site",
       description:
-        "Bertanggung jawab atas perencanaan strategi publikasi media sosial, koordinasi hubungan masyarakat, serta produksi dokumentasi multimedia dan liputan visual secara menyeluruh untuk mensukseskan rangkaian acara UPCOME 4.0.",
+        "UPCOME 4.0 adalah program kerja dari BEM UPNVJ. Bertanggung jawab atas perencanaan strategi publikasi media sosial, koordinasi hubungan masyarakat, serta produksi dokumentasi multimedia dan liputan visual secara menyeluruh untuk mensukseskan seluruh rangkaian acara.",
       skills: [
         "Public Relations",
         "Teamwork",
         "Media Publication",
         "Event Documentation",
-        "Content Creation",
       ],
-      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&auto=format&fit=crop&q=80",
-      icon: <Camera className="w-5 h-5 text-white" />,
+      image: "/experience-upcome.jpg",
+      imagePosition: "object-[center_55%]",
+      caption: "Kepanitiaan & Tim Publikasi Dokumentasi UPCOME 4.0",
+      icon: <Camera className="w-4 h-4" />,
+      glowColors: ["#C3E41D", "#8B5CF6", "#EC4899", "#C3E41D"],
     },
   ];
 
-  const handleOptionClick = (index: number) => {
-    if (index !== activeIndex) {
-      setActiveIndex(index);
-    }
+  const current = experiences[activeIndex];
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? experiences.length - 1 : prev - 1));
   };
 
-  useEffect(() => {
-    const timers: NodeJS.Timeout[] = [];
-    experiences.forEach((_, i) => {
-      const timer = setTimeout(() => {
-        setAnimatedOptions((prev) => [...prev, i]);
-      }, 160 * i);
-      timers.push(timer);
-    });
-
-    return () => {
-      timers.forEach((timer) => clearTimeout(timer));
-    };
-  }, []);
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev === experiences.length - 1 ? 0 : prev + 1));
+  };
 
   return (
     <section
@@ -114,11 +128,11 @@ export default function ExperienceSection() {
     >
       {/* Background Accent Ambient Glow */}
       <div
-        className="pointer-events-none absolute top-1/2 -left-32 w-96 h-96 rounded-full blur-[150px] opacity-15 dark:opacity-10"
+        className="pointer-events-none absolute top-1/3 -left-32 w-96 h-96 rounded-full blur-[160px] opacity-15 dark:opacity-10"
         style={{ backgroundColor: "#C3E41D" }}
       />
       <div
-        className="pointer-events-none absolute bottom-10 -right-32 w-96 h-96 rounded-full blur-[150px] opacity-15 dark:opacity-10"
+        className="pointer-events-none absolute bottom-10 -right-32 w-96 h-96 rounded-full blur-[160px] opacity-15 dark:opacity-10"
         style={{ backgroundColor: "#C3E41D" }}
       />
 
@@ -145,213 +159,219 @@ export default function ExperienceSection() {
           </p>
         </div>
 
-        {/* Interactive Selector Experience Showcase */}
-        {/* Desktop & Tablet View: Expanding Accordion Cards */}
-        <div className="hidden md:flex w-full h-[520px] items-stretch overflow-hidden rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-2xl bg-neutral-900">
+        {/* Interactive Selector Tabs */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-8">
           {experiences.map((exp, index) => {
             const isActive = activeIndex === index;
-            const isAnimated = animatedOptions.includes(index);
-
             return (
-              <div
-                key={exp.id}
-                onClick={() => handleOptionClick(index)}
-                className={`
-                  relative flex flex-col justify-end overflow-hidden transition-all duration-700 ease-in-out cursor-pointer select-none
-                  ${isActive ? "active" : "hover:brightness-110"}
-                `}
-                style={{
-                  backgroundImage: `url('${exp.image}')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  opacity: isAnimated ? 1 : 0,
-                  transform: isAnimated ? "translateX(0)" : "translateX(-50px)",
-                  minWidth: "100px",
-                  flex: isActive ? "5 1 0%" : "1 1 0%",
-                  borderRight: index < experiences.length - 1 ? "1px solid rgba(255,255,255,0.12)" : "none",
-                  zIndex: isActive ? 10 : 1,
-                  boxShadow: isActive ? "0 25px 60px rgba(0,0,0,0.6)" : "none",
-                }}
-              >
-                {/* Backdrop Overlay: Darker when collapsed, smooth gradient when active */}
-                <div
-                  className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
-                  style={{
-                    backgroundColor: isActive ? "rgba(0, 0, 0, 0.45)" : "rgba(0, 0, 0, 0.78)",
-                  }}
+              <div key={exp.id} className="relative group rounded-2xl">
+                {/* Glow Effect for each Experience Card */}
+                <GlowEffect
+                  colors={exp.glowColors}
+                  mode="rotate"
+                  blur="medium"
+                  scale={1.03}
+                  duration={6}
+                  className={`rounded-2xl transition-opacity duration-500 ${
+                    isActive
+                      ? "opacity-90 dark:opacity-100"
+                      : "opacity-0 group-hover:opacity-60 dark:group-hover:opacity-75"
+                  }`}
                 />
 
-                {/* Bottom to Top Deep Black Gradient for Content Readability */}
-                <div
-                  className="absolute inset-0 pointer-events-none transition-all duration-700"
-                  style={{
-                    background: isActive
-                      ? "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.75) 45%, rgba(0,0,0,0.2) 80%, transparent 100%)"
-                      : "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 100%)",
-                  }}
-                />
-
-                {/* Collapsed State Header Indicator (Vertical Text or Compact Icon) */}
-                {!isActive && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-between p-6 pointer-events-none z-20">
-                    <div className="w-12 h-12 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg">
-                      {exp.icon}
-                    </div>
-                    <div className="flex items-center justify-center [writing-mode:vertical-rl] rotate-180 text-sm font-mono tracking-wider text-white/80 uppercase">
-                      {exp.title}
-                    </div>
-                    <span className="text-xs font-mono text-white/50">0{index + 1}</span>
-                  </div>
-                )}
-
-                {/* Expanded State Full Card Content */}
-                <div
-                  className="relative z-20 p-8 sm:p-10 flex flex-col justify-end transition-all duration-700"
-                  style={{
-                    opacity: isActive ? 1 : 0,
-                    transform: isActive ? "translateY(0)" : "translateY(30px)",
-                    pointerEvents: isActive ? "auto" : "none",
-                  }}
+                <button
+                  onClick={() => setActiveIndex(index)}
+                  className={`
+                    w-full text-left p-4 rounded-2xl border transition-all duration-300 relative z-10 overflow-hidden
+                    ${
+                      isActive
+                        ? "bg-white dark:bg-neutral-900/95 border-[#C3E41D] shadow-lg shadow-[#C3E41D]/10 ring-1 ring-[#C3E41D]/40"
+                        : "bg-white/85 dark:bg-neutral-950/85 backdrop-blur-sm border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700"
+                    }
+                  `}
                 >
-                  {/* Top Badge & Metadata */}
-                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                  {/* Active Indicator Top Accent Bar */}
+                  {isActive && (
                     <div
-                      className="w-11 h-11 rounded-xl flex items-center justify-center shadow-lg border border-white/20"
-                      style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-                    >
-                      {exp.icon}
-                    </div>
-                    <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#C3E41D]/20 text-[#C3E41D] border border-[#C3E41D]/40">
-                      0{index + 1} // {exp.role}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-300">
-                      <Calendar className="w-3.5 h-3.5 text-[#C3E41D]" /> {exp.period}
-                    </span>
-                    {exp.location && (
-                      <span className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-300">
-                        <MapPin className="w-3.5 h-3.5 text-[#C3E41D]" /> {exp.location}
-                      </span>
-                    )}
-                  </div>
+                      className="absolute top-0 left-0 right-0 h-1"
+                      style={{ backgroundColor: "#C3E41D" }}
+                    />
+                  )}
 
-                  {/* Main Title & Organization */}
-                  <h3
-                    className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2"
-                    style={{ fontFamily: "'Fira Code', monospace" }}
-                  >
-                    {exp.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm font-mono text-[#C3E41D] mb-4">
-                    <Building2 className="w-4 h-4 flex-shrink-0" />
-                    <span>{exp.company}</span>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm sm:text-base text-neutral-200 leading-relaxed font-sans mb-6 max-w-2xl drop-shadow">
-                    {exp.description}
-                  </p>
-
-                  {/* Skills / Tech Stack Badges */}
-                  <div className="flex flex-wrap gap-2">
-                    {exp.skills.map((skill, sIdx) => (
-                      <span
-                        key={sIdx}
-                        className="px-2.5 py-1 rounded-lg text-xs font-mono bg-black/60 text-white/90 border border-white/15 backdrop-blur-md"
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`
+                          w-8 h-8 rounded-lg flex items-center justify-center transition-colors
+                          ${
+                            isActive
+                              ? "bg-[#C3E41D] text-black"
+                              : "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white"
+                          }
+                        `}
                       >
-                        ✓ {skill}
+                        {exp.icon}
+                      </div>
+                      <span
+                        className={`text-xs font-mono font-bold tracking-wider ${
+                          isActive ? "text-[#a8cc0e] dark:text-[#C3E41D]" : "text-neutral-400 dark:text-neutral-500"
+                        }`}
+                      >
+                        {exp.number}
                       </span>
-                    ))}
+                    </div>
+
+                    <span className="text-[11px] font-mono text-neutral-400 dark:text-neutral-500">
+                      {exp.period.split("—")[0].trim()}
+                    </span>
                   </div>
-                </div>
+
+                  <h4 className="font-mono font-bold text-sm sm:text-base text-neutral-900 dark:text-white truncate">
+                    {exp.tabLabel}
+                  </h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate mt-0.5 font-sans">
+                    {exp.company}
+                  </p>
+                </button>
               </div>
             );
           })}
         </div>
 
-        {/* Mobile View: Vertical Accordion Cards (< md screens) */}
-        <div className="flex md:hidden flex-col gap-4">
-          {experiences.map((exp, index) => {
-            const isActive = activeIndex === index;
+        {/* Main Split-Panel Showcase Card */}
+        <div className="relative group rounded-3xl">
+          {/* Ambient Glow for Main Active Experience Card */}
+          <GlowEffect
+            key={`main-glow-${current.id}`}
+            colors={current.glowColors}
+            mode="rotate"
+            blur="strong"
+            scale={1.012}
+            duration={7}
+            className="rounded-3xl opacity-35 dark:opacity-50 transition-opacity duration-700"
+          />
 
-            return (
-              <div
-                key={exp.id}
-                onClick={() => handleOptionClick(index)}
-                className={`
-                  relative rounded-2xl overflow-hidden border transition-all duration-500 cursor-pointer
-                  ${
-                    isActive
-                      ? "border-[#C3E41D]/60 shadow-xl ring-1 ring-[#C3E41D]/30"
-                      : "border-neutral-200 dark:border-neutral-800"
-                  }
-                `}
-                style={{
-                  backgroundImage: `url('${exp.image}')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
+          <div className="relative z-10 rounded-3xl border border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-950/95 backdrop-blur-xl shadow-2xl p-6 sm:p-8 lg:p-10 overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current.id}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
               >
-                {/* Dark Gradient Overlay */}
-                <div
-                  className="absolute inset-0 pointer-events-none transition-opacity duration-500"
-                  style={{
-                    backgroundColor: isActive ? "rgba(0, 0, 0, 0.65)" : "rgba(0, 0, 0, 0.8)",
-                  }}
-                />
+                {/* Left Column: Full Information & Details (7 cols) */}
+                <div className="lg:col-span-7 flex flex-col justify-between">
+                  <div>
+                    {/* Badges & Navigation Header */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#C3E41D]/15 text-[#a8cc0e] dark:text-[#C3E41D] border border-[#C3E41D]/30">
+                        {current.number} // {current.role}
+                      </span>
 
-                <div className="relative z-10 p-6 flex flex-col justify-between min-h-[160px]">
-                  {/* Header / Trigger */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-black/60 border border-white/20 flex items-center justify-center flex-shrink-0">
-                        {exp.icon}
-                      </div>
-                      <div>
-                        <span className="text-xs font-mono text-[#C3E41D] block">
-                          0{index + 1} • {exp.period}
+                      {/* Pagination Arrows */}
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={handlePrev}
+                          aria-label="Previous experience"
+                          className="w-8 h-8 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center hover:border-[#C3E41D] transition-colors"
+                        >
+                          <ChevronLeft className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
+                        </button>
+                        <span className="text-xs font-mono px-1 text-neutral-500">
+                          {activeIndex + 1}/{experiences.length}
                         </span>
-                        <h4 className="text-lg font-bold text-white font-mono">{exp.title}</h4>
+                        <button
+                          onClick={handleNext}
+                          aria-label="Next experience"
+                          className="w-8 h-8 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center hover:border-[#C3E41D] transition-colors"
+                        >
+                          <ChevronRight className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
+                        </button>
                       </div>
                     </div>
-                    <ChevronRight
-                      className={`w-5 h-5 text-[#C3E41D] transition-transform duration-300 flex-shrink-0 ${
-                        isActive ? "rotate-90" : "rotate-0"
-                      }`}
-                    />
+
+                    {/* Role Title */}
+                    <h3
+                      className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white tracking-tight mb-3"
+                      style={{ fontFamily: "'Fira Code', monospace" }}
+                    >
+                      {current.title}
+                    </h3>
+
+                    {/* Company, Date & Location Metadata */}
+                    <div className="space-y-1.5 mb-6 text-xs sm:text-sm font-mono text-neutral-600 dark:text-neutral-400">
+                      <div className="flex items-center gap-2 text-neutral-900 dark:text-neutral-200 font-semibold">
+                        <Building2 className="w-4 h-4 text-[#a8cc0e] dark:text-[#C3E41D] flex-shrink-0" />
+                        <span>{current.company}</span>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-neutral-500 dark:text-neutral-400">
+                        <span className="inline-flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-[#a8cc0e] dark:text-[#C3E41D]" /> {current.period}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 text-[#a8cc0e] dark:text-[#C3E41D]" /> {current.location}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Narrative Description with Text Generate / Typewriter Effect */}
+                    <TextGenerateEffect
+                      key={current.id}
+                      as="p"
+                      className="text-neutral-700 dark:text-neutral-300 text-sm sm:text-base leading-relaxed font-sans mb-6"
+                      filter
+                      staggerDuration={0.02}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {current.description}
+                    </TextGenerateEffect>
                   </div>
 
-                  {/* Expanded Content on Mobile */}
-                  {isActive && (
-                    <div className="mt-4 pt-4 border-t border-white/10 animate-fadeIn">
-                      <p className="text-xs font-mono text-neutral-300 flex flex-wrap items-center gap-x-3 gap-y-1 mb-3">
-                        <span className="inline-flex items-center gap-1.5">
-                          <Building2 className="w-3.5 h-3.5 text-[#C3E41D]" /> {exp.company}
+                  {/* Skill Badges */}
+                  <div>
+                    <h5 className="text-xs font-mono uppercase tracking-wider text-neutral-500 mb-2.5">
+                      // Keahlian & Ruang Lingkup Kerja:
+                    </h5>
+                    <div className="flex flex-wrap gap-2">
+                      {current.skills.map((skill, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className="px-2.5 py-1 rounded-lg text-xs font-mono bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-800"
+                        >
+                          ✓ {skill}
                         </span>
-                        {exp.location && (
-                          <span className="inline-flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-[#C3E41D]" /> {exp.location}
-                          </span>
-                        )}
-                      </p>
-                      <p className="text-sm text-neutral-200 leading-relaxed font-sans mb-4">
-                        {exp.description}
-                      </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {exp.skills.map((skill, sIdx) => (
-                          <span
-                            key={sIdx}
-                            className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-black/70 text-white/90 border border-white/15"
-                          >
-                            ✓ {skill}
-                          </span>
-                        ))}
-                      </div>
+                      ))}
                     </div>
-                  )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+
+                {/* Right Column: 100% Crystal-Clear Photo Showcase (5 cols) */}
+                <div className="lg:col-span-5">
+                  <div className="relative group/photo rounded-2xl">
+                    {/* Subtle Glow around photo border on hover */}
+                    <GlowEffect
+                      colors={current.glowColors}
+                      mode="rotate"
+                      blur="soft"
+                      scale={1.02}
+                      duration={6}
+                      className="rounded-2xl opacity-0 group-hover/photo:opacity-75 dark:group-hover/photo:opacity-85 transition-opacity duration-500"
+                    />
+                    <div className="relative z-10 w-full h-[320px] sm:h-[400px] lg:h-[460px] rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 shadow-xl bg-neutral-900">
+                      <img
+                        src={current.image}
+                        alt={current.title}
+                        className={`w-full h-full object-cover ${current.imagePosition} group-hover/photo:scale-105 transition-transform duration-500`}
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
