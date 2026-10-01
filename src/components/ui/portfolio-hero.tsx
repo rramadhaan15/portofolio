@@ -321,7 +321,7 @@ export default function Component() {
         <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-32 xl:bottom-36 left-1/2 -translate-x-1/2 w-full px-6">
           <div className="flex justify-center">
             <BlurText
-              text="Designing human experiences in code."
+              text="Engineering modern web solutions and secure information systems."
               delay={150}
               animateBy="words"
               direction="top"
