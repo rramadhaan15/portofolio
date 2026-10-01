@@ -103,6 +103,7 @@ export default function Component() {
         { name: "ABOUT", el: document.getElementById("about") },
         { name: "EDUCATION", el: document.getElementById("education") },
         { name: "EXPERIENCE", el: document.getElementById("experience") },
+        { name: "PROJECTS", el: document.getElementById("projects") },
         { name: "SOCIAL MEDIA", el: document.getElementById("socials") || document.getElementById("contact") },
       ];
 
@@ -153,10 +154,9 @@ export default function Component() {
     { label: "ABOUT", href: "#about" },
     { label: "EDUCATION", href: "#education" },
     { label: "EXPERIENCE", href: "#experience" },
-    { label: "SOCIAL MEDIA", href: "#socials" },
     { label: "PROJECTS", href: "#projects" },
-    { label: "WRITING", href: "#writing" },
-    { label: "CONTACT", href: "#socials" },
+    { label: "SOCIAL MEDIA", href: "#socials" },
+    { label: "CONTACT", href: "#contact" },
   ];
 
   const isItemActive = (label: string) => {
