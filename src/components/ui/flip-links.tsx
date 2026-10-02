@@ -40,7 +40,7 @@ export const Component = () => {
           <span style={{ color: "#C3E41D" }}>06 // SOCIAL MEDIA & CONNECT</span>
         </div>
         <p className="text-xs sm:text-sm font-mono text-neutral-500 mt-2">
-          Hover atau klik untuk terhubung dengan saya
+          Terbuka untuk kolaborasi dan diskusi, hubungi saya lewat platform berikut.
         </p>
       </div>
 
