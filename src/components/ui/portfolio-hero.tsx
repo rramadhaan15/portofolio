@@ -86,13 +86,20 @@ const BlurText: React.FC<BlurTextProps> = ({
 
 export default function Component() {
   const [activeSection, setActiveSection] = useState("HOME");
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    document.documentElement.classList.add("dark");
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setIsDark(true);
+      document.documentElement.classList.add("dark");
+    } else {
+      setIsDark(false);
+      document.documentElement.classList.remove("dark");
+    }
   }, []);
 
   useEffect(() => {
@@ -120,6 +127,7 @@ export default function Component() {
         { name: "EDUCATION", id: "education" },
         { name: "EXPERIENCE", id: "experience" },
         { name: "PROJECTS", id: "projects" },
+        { name: "CERTIFICATES", id: "certificates" },
         { name: "SOCIAL MEDIA", id: "socials" },
       ];
 
@@ -202,8 +210,14 @@ export default function Component() {
     setIsDark(newTheme);
     if (newTheme) {
       document.documentElement.classList.add("dark");
+      try {
+        localStorage.setItem("theme", "dark");
+      } catch (e) {}
     } else {
       document.documentElement.classList.remove("dark");
+      try {
+        localStorage.setItem("theme", "light");
+      } catch (e) {}
     }
   };
 
@@ -213,6 +227,7 @@ export default function Component() {
     { label: "EDUCATION", href: "#education" },
     { label: "EXPERIENCE", href: "#experience" },
     { label: "PROJECTS", href: "#projects" },
+    { label: "CERTIFICATES", href: "#certificates" },
     { label: "SOCIAL MEDIA", href: "#socials" },
     { label: "CONTACT", href: "#contact" },
   ];

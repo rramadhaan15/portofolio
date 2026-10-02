@@ -4,6 +4,7 @@ import AboutSection from "@/components/ui/about-section";
 import EducationSection from "@/components/ui/education-section";
 import ExperienceSection from "@/components/ui/experience-section";
 import ProjectsSection from "@/components/ui/projects-section";
+import CertificatesSection from "@/components/ui/certificates-section";
 import { Component as FlipLinks } from "@/components/ui/flip-links";
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
       <EducationSection />
       <ExperienceSection />
       <ProjectsSection />
+      <CertificatesSection />
       <FlipLinks />
     </div>
   );
