@@ -79,7 +79,7 @@ export default function AboutSection() {
             className="mt-4 text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl"
             style={{ fontFamily: "'Antic', sans-serif" }}
           >
-            Menjembatani pengembangan perangkat lunak, ketahanan sistem siber, dan analisis data bisnis strategis.
+            Berminat di web development, cyber security, dan business intelligence, dengan fokus membangun sistem yang aman dan berbasis data.
           </p>
         </div>
 
