@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { cn } from "@/lib/utils";
+import { cn, getAssetUrl } from "@/lib/utils";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -445,7 +445,7 @@ export function ProjectsSection({
                       {/* Project Screenshot */}
                       <div className="relative w-full flex-1 overflow-hidden bg-neutral-950 flex flex-col justify-between group">
                         <img
-                          src="/project-internesia.png"
+                          src={getAssetUrl("/project-internesia.png")}
                           alt="Internesia - Platform Magang & Pelacak Lamaran"
                           className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                           loading="eager"
@@ -640,7 +640,7 @@ export function ProjectsSection({
                       {/* Project Screenshot */}
                       <div className="relative w-full flex-1 overflow-hidden bg-neutral-950 flex flex-col justify-between group">
                         <img
-                          src="/project-padel-prime.png"
+                          src={getAssetUrl("/project-padel-prime.png")}
                           alt="Padel Prime - Reservasi Lapangan Padel Online Cepat"
                           className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                           loading="eager"

@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { GlowEffect } from "@/components/ui/glow-effect";
+import { getAssetUrl } from "@/lib/utils";
+
 
 interface ExperienceItem {
   id: string;
@@ -56,7 +58,7 @@ export default function ExperienceSection() {
         "Requirement Engineering",
         "Information Systems Architecture",
       ],
-      image: "/experience-kemenperin.jpg",
+      image: getAssetUrl("/experience-kemenperin.jpg"),
       imagePosition: "object-[center_35%]",
       caption: "Dokumentasi di Kementerian Perindustrian RI",
       icon: <Layers className="w-4 h-4" />,
@@ -80,7 +82,7 @@ export default function ExperienceSection() {
         "Partnership & Networking",
         "Event Management",
       ],
-      image: "/experience-hima.jpg",
+      image: getAssetUrl("/experience-hima.jpg"),
       imagePosition: "object-[center_60%]",
       caption: "Kebersamaan Pengurus HIMA D3SI UPNVJ di Monas",
       icon: <Megaphone className="w-4 h-4" />,
@@ -103,7 +105,7 @@ export default function ExperienceSection() {
         "Media Publication",
         "Event Documentation",
       ],
-      image: "/experience-upcome.jpg",
+      image: getAssetUrl("/experience-upcome.jpg"),
       imagePosition: "object-[center_55%]",
       caption: "Kepanitiaan & Tim Publikasi Dokumentasi UPCOME 4.0",
       icon: <Camera className="w-4 h-4" />,

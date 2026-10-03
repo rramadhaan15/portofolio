@@ -12,7 +12,8 @@ import {
   X,
   Sparkles,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, getAssetUrl } from "@/lib/utils";
+
 
 export interface CertificateItem {
   id: string;
@@ -39,7 +40,7 @@ const DEFAULT_CERTIFICATES: CertificateItem[] = [
     credentialUrl: "https://edu.google.accredible.com/9a40b88d-e3f7-475a-8c5e-dce2b8c50646#acc.B0frm2OP",
     skills: ["Generative AI", "Problem Solving", "Critical Thinking", "Google Workspace"],
     description: "Google for Education Academy adalah platform pembelajaran profesional resmi dari Google yang dirancang untuk membekali peserta dengan keterampilan digital dan pemanfaatan teknologi modern. Program ini berfokus pada peningkatan produktivitas melalui integrasi perangkat digital dan kecerdasan buatan seperti Google Workspace dan AI, pengembangan kompetensi melalui modul interaktif yang praktis, serta pemberian kesempatan untuk memperoleh sertifikasi atau lencana pengakuan resmi setelah menyelesaikan seluruh rangkaian materi.",
-    image: "/certificate-google-gemini.png",
+    image: getAssetUrl("/certificate-google-gemini.png"),
     issuerBadgeColor: "#4285F4",
   },
   {
@@ -52,7 +53,7 @@ const DEFAULT_CERTIFICATES: CertificateItem[] = [
     credentialUrl: "https://www.credly.com/earner/earned/badge/6cce579d-952e-475c-a4bc-8fed34ffea9d",
     skills: ["Data Analytics", "Data Visualization", "Problem Solving", "Critical Thinking"],
     description: "Kredensial digital profesional dari IBM SkillsBuild yang memvalidasi kompetensi fundamental dalam pengolahan data, pemahaman struktur data relasional, visualisasi data analitik, serta pemecahan masalah dan pemikiran kritis berbasis data.",
-    image: "/certificate-ibm-data.png",
+    image: getAssetUrl("/certificate-ibm-data.png"),
     issuerBadgeColor: "#0062FF",
   },
   {
@@ -65,7 +66,7 @@ const DEFAULT_CERTIFICATES: CertificateItem[] = [
     credentialUrl: "https://www.credly.com/badges/9a391463-1d3c-40b0-b2bf-80a8c0a2c48b/public_url",
     skills: ["Generative AI", "Code Optimization", "IBM Granite", "Problem Solving"],
     description: "Code Generation and Optimization Using IBM Granite adalah lencana kredensial digital dari IBM SkillsBuild yang menunjukkan bahwa seseorang telah mempelajari dan memiliki keterampilan praktis dalam menggunakan model AI IBM Granite untuk menghasilkan dan mengoptimalkan kode pemrograman.",
-    image: "/certificate-ibm-granite.png",
+    image: getAssetUrl("/certificate-ibm-granite.png"),
     issuerBadgeColor: "#0062FF",
   },
 ];

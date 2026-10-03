@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { getAssetUrl } from "@/lib/utils";
 
 // Inline Button component
 const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
@@ -375,7 +376,7 @@ export default function Component() {
                 />
 
                 <img
-                  src="/profile-cutout.png"
+                  src={getAssetUrl("/profile-cutout.png")}
                   alt="Rizki Ramadhan"
                   className="h-[200px] sm:h-[285px] md:h-[370px] lg:h-[440px] xl:h-[480px] w-auto max-w-none object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.4)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)] select-none pointer-events-none"
                 />

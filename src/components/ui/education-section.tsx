@@ -7,6 +7,8 @@ import {
   Calendar,
 } from "lucide-react";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { getAssetUrl } from "@/lib/utils";
+
 
 export default function EducationSection() {
   const educationData: TimelineEntry[] = [
@@ -77,7 +79,7 @@ export default function EducationSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="relative rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 group h-48 sm:h-56">
                 <img
-                  src="/education-kuliah-1.jpg"
+                  src={getAssetUrl("/education-kuliah-1.jpg")}
                   alt="Mahasiswa D3 Sistem Informasi UPNVJ"
                   className="w-full h-full object-cover object-[center_60%] group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
@@ -86,7 +88,7 @@ export default function EducationSection() {
 
               <div className="relative rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 group h-48 sm:h-56">
                 <img
-                  src="/education-kuliah-2.jpg"
+                  src={getAssetUrl("/education-kuliah-2.jpg")}
                   alt="Kebersamaan Angkatan Mahasiswa"
                   className="w-full h-full object-cover object-[center_70%] group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
@@ -155,7 +157,7 @@ export default function EducationSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="relative rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 group h-48 sm:h-56">
                 <img
-                  src="/education-sma-1.jpg"
+                  src={getAssetUrl("/education-sma-1.jpg")}
                   alt="Dokumentasi Kelulusan SMAN 22 Jakarta"
                   className="w-full h-full object-cover object-[center_65%] group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
@@ -164,7 +166,7 @@ export default function EducationSection() {
 
               <div className="relative rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 group h-48 sm:h-56">
                 <img
-                  src="/education-sma-2.jpg"
+                  src={getAssetUrl("/education-sma-2.jpg")}
                   alt="Kebersamaan Siswa dan Guru SMAN 22 Jakarta"
                   className="w-full h-full object-cover object-[center_55%] group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
