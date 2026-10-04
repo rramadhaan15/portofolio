@@ -354,7 +354,7 @@ export function ProjectsSection({
       </div>
 
       {/* TOP FLOATING PROJECT STEPPER PILL */}
-      <div className="project-stepper absolute top-6 sm:top-8 z-30 flex items-center gap-3 px-4 py-1.5 rounded-full bg-black/70 backdrop-blur-xl border border-white/10 shadow-2xl font-mono text-xs text-neutral-300 pointer-events-none">
+      <div className="project-stepper absolute top-20 sm:top-24 md:top-28 z-30 flex items-center gap-3 px-4 py-1.5 rounded-full bg-black/75 backdrop-blur-xl border border-white/10 shadow-2xl font-mono text-xs text-neutral-300 pointer-events-none">
         <span className="text-[#C3E41D] font-bold text-[10px] tracking-widest uppercase">PROJECT SHOWCASE</span>
         <span className="text-white/20">|</span>
         <div className="flex items-center gap-1.5">
