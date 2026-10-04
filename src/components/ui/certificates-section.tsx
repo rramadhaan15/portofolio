@@ -303,33 +303,6 @@ export function CertificatesSection({
             ))}
           </AnimatePresence>
         </motion.div>
-
-        {/* Bottom Trust & Verification Banner */}
-        <div className="mt-16 rounded-2xl p-6 sm:p-8 bg-gradient-to-r from-neutral-100 via-white to-neutral-100 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4 text-center md:text-left">
-            <div className="w-12 h-12 rounded-2xl bg-[#C3E41D]/10 border border-[#C3E41D]/30 flex items-center justify-center flex-shrink-0 mx-auto md:mx-0">
-              <ShieldCheck className="w-6 h-6 text-[#C3E41D]" />
-            </div>
-            <div>
-              <h4 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white font-mono">
-                Authentic & Industry-Verified Credentials
-              </h4>
-              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-                Seluruh lisensi dan sertifikat dapat divalidasi langsung melalui lembaga penerbit resmi terkait.
-              </p>
-            </div>
-          </div>
-
-          <a
-            href="https://www.linkedin.com/in/rizki-ramadhan-a2888031b/details/certifications/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black text-xs sm:text-sm font-mono font-semibold transition-all duration-300 shadow-md flex-shrink-0"
-          >
-            <span>Verifikasi di LinkedIn</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
       </div>
 
       {/* ========================================================================= */}
