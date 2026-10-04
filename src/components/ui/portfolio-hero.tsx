@@ -230,7 +230,6 @@ export default function Component() {
     { label: "PROJECTS", href: "#projects" },
     { label: "CERTIFICATES", href: "#certificates" },
     { label: "SOCIAL MEDIA", href: "#socials" },
-    { label: "CONTACT", href: "#contact" },
   ];
 
   const isItemActive = (label: string) => {
