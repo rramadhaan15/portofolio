@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { getAssetUrl } from "@/lib/utils";
+import ToggleMuteUnmute from "@/components/ui/c-toggle-14";
 
 // Inline Button component
 const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
@@ -320,22 +321,27 @@ export default function Component() {
             R
           </div>
 
-          {/* Theme Toggle */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="relative w-16 h-8 rounded-full hover:opacity-80 transition-opacity"
-            style={{ backgroundColor: isDark ? "hsl(0 0% 15%)" : "hsl(0 0% 90%)" }}
-            aria-label="Toggle theme"
-          >
-            <div
-              className="absolute top-1 left-1 w-6 h-6 rounded-full transition-transform duration-300"
-              style={{
-                backgroundColor: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
-                transform: isDark ? "translateX(2rem)" : "translateX(0)",
-              }}
-            />
-          </button>
+          {/* Controls: Music Mute/Unmute Toggle (Left) & Theme Toggle (Right) */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <ToggleMuteUnmute size="sm" />
+
+            {/* Theme Toggle */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="relative w-16 h-8 rounded-full hover:opacity-80 transition-opacity"
+              style={{ backgroundColor: isDark ? "hsl(0 0% 15%)" : "hsl(0 0% 90%)" }}
+              aria-label="Toggle theme"
+            >
+              <div
+                className="absolute top-1 left-1 w-6 h-6 rounded-full transition-transform duration-300"
+                style={{
+                  backgroundColor: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
+                  transform: isDark ? "translateX(2rem)" : "translateX(0)",
+                }}
+              />
+            </button>
+          </div>
         </nav>
       </header>
 
