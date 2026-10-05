@@ -77,12 +77,17 @@ export default function ToggleMuteUnmute({
         size={size}
         variant={variant}
         aria-label="Toggle mute"
+        title={muted ? "Muted: Reality Club - 2112" : "Playing: Reality Club - 2112"}
         pressed={muted}
         onPressedChange={handleToggle}
-        className="cursor-pointer gap-1.5 transition-all duration-300"
+        className="cursor-pointer gap-1.5 transition-all duration-300 rounded-full"
       >
-        {muted ? <VolumeOffIcon className="w-4 h-4" /> : <Volume2Icon className="w-4 h-4" />}
-        <span>{muted ? "Muted" : "Sound"}</span>
+        {muted ? (
+          <VolumeOffIcon className="w-4 h-4 text-neutral-400" />
+        ) : (
+          <Volume2Icon className="w-4 h-4 text-[#C3E41D] animate-pulse" />
+        )}
+        <span className="text-xs font-semibold">{muted ? "Muted" : "2112"}</span>
       </Toggle>
     </div>
   );
