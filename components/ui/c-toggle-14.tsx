@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Volume2Icon, VolumeOffIcon } from "lucide-react";
 
 import { Toggle } from "@/components/ui/toggle";
@@ -14,62 +14,85 @@ interface ToggleMuteUnmuteProps {
 }
 
 export default function ToggleMuteUnmute({
-  size = "lg",
+  size = "sm",
   variant = "outline",
   className = "",
   audioSrc,
 }: ToggleMuteUnmuteProps = {}) {
-  const [muted, setMuted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const isMutedRef = useRef(false);
+  const userMutedRef = useRef(false);
 
   useEffect(() => {
-    isMutedRef.current = muted;
-  }, [muted]);
-
-  useEffect(() => {
+    // Resolve audio URL
     const src = audioSrc || getAssetUrl("/bg-music.mp3");
     const audio = new Audio(src);
     audio.loop = true;
-    audio.volume = 0.35;
+    audio.volume = 0.65;
+    audio.preload = "auto";
     audioRef.current = audio;
 
-    // Attempt autoplay when website loads
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Modern browser autoplay policy: start audio on first user gesture
-        const startOnInteraction = () => {
-          if (!isMutedRef.current && audioRef.current) {
-            audioRef.current.play().catch(() => {});
-          }
-          window.removeEventListener("click", startOnInteraction);
-          window.removeEventListener("touchstart", startOnInteraction);
-          window.removeEventListener("keydown", startOnInteraction);
-        };
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
 
-        window.addEventListener("click", startOnInteraction, { once: true });
-        window.addEventListener("touchstart", startOnInteraction, { once: true });
-        window.addEventListener("keydown", startOnInteraction, { once: true });
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+
+    // Safely attempt audio playback
+    const startAudio = () => {
+      if (!audioRef.current || userMutedRef.current) return;
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch((err) => {
+        // Modern browser autoplay policy: blocked until first user gesture
+        console.log("Autoplay waiting for user gesture:", err);
       });
-    }
+    };
+
+    // 1. Immediate attempt on page load
+    startAudio();
+
+    // 2. Fallback: play on first user interaction anywhere on the website
+    const handleUserGesture = () => {
+      if (!userMutedRef.current && audioRef.current && audioRef.current.paused) {
+        startAudio();
+      }
+    };
+
+    window.addEventListener("click", handleUserGesture, { passive: true });
+    window.addEventListener("touchstart", handleUserGesture, { passive: true });
+    window.addEventListener("keydown", handleUserGesture, { passive: true });
 
     return () => {
+      window.removeEventListener("click", handleUserGesture);
+      window.removeEventListener("touchstart", handleUserGesture);
+      window.removeEventListener("keydown", handleUserGesture);
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
       audio.pause();
       audioRef.current = null;
     };
   }, [audioSrc]);
 
-  const handleToggle = (pressed: boolean) => {
-    setMuted(pressed);
-    if (!audioRef.current) return;
+  const toggleSound = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    if (pressed) {
-      audioRef.current.pause();
+    if (!audio.paused) {
+      // User explicitly paused/muted
+      userMutedRef.current = true;
+      audio.pause();
+      setIsPlaying(false);
     } else {
-      audioRef.current.play().catch(() => {});
+      // User explicitly unmuted/played
+      userMutedRef.current = false;
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch((err) => {
+        console.error("Failed to play audio:", err);
+      });
     }
-  };
+  }, []);
 
   return (
     <div className={`flex items-center justify-center ${className}`}>
@@ -77,17 +100,17 @@ export default function ToggleMuteUnmute({
         size={size}
         variant={variant}
         aria-label="Toggle mute"
-        title={muted ? "Muted: Reality Club - 2112" : "Playing: Reality Club - 2112"}
-        pressed={muted}
-        onPressedChange={handleToggle}
-        className="cursor-pointer gap-1.5 transition-all duration-300 rounded-full"
+        title={isPlaying ? "Playing: Reality Club - 2112 (Click to mute)" : "Click to play Reality Club - 2112"}
+        pressed={isPlaying}
+        onPressedChange={toggleSound}
+        className="cursor-pointer select-none transition-all duration-300 rounded-full min-w-[88px] h-8 px-3 gap-1.5"
       >
-        {muted ? (
-          <VolumeOffIcon className="w-4 h-4 text-neutral-400" />
+        {isPlaying ? (
+          <Volume2Icon className="w-3.5 h-3.5 text-[#C3E41D] animate-pulse shrink-0" />
         ) : (
-          <Volume2Icon className="w-4 h-4 text-[#C3E41D] animate-pulse" />
+          <VolumeOffIcon className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
         )}
-        <span className="text-xs font-semibold">{muted ? "Muted" : "2112"}</span>
+        <span className="text-xs font-semibold">{isPlaying ? "2112" : "Muted"}</span>
       </Toggle>
     </div>
   );

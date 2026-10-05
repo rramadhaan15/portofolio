@@ -248,9 +248,9 @@ export default function Component() {
     >
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6">
-        <nav className="flex items-center justify-between max-w-screen-2xl mx-auto">
+        <nav className="relative flex items-center justify-between max-w-screen-2xl mx-auto">
           {/* Menu Button */}
-          <div className="relative">
+          <div className="relative z-10">
             <button
               ref={buttonRef}
               type="button"
@@ -316,13 +316,16 @@ export default function Component() {
             )}
           </div>
 
-          {/* Signature */}
-          <div className="text-4xl" style={{ color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)", fontFamily: "'Brush Script MT', 'Lucida Handwriting', cursive" }}>
+          {/* Signature (Permanently Centered in navbar) */}
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl select-none pointer-events-none"
+            style={{ color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)", fontFamily: "'Brush Script MT', 'Lucida Handwriting', cursive" }}
+          >
             R
           </div>
 
           {/* Controls: Music Mute/Unmute Toggle (Left) & Theme Toggle (Right) */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="relative z-10 flex items-center gap-2 sm:gap-3">
             <ToggleMuteUnmute size="sm" />
 
             {/* Theme Toggle */}
