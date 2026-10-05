@@ -4,7 +4,6 @@ import {
   Terminal,
   ArrowUpRight,
   CheckCircle2,
-  Fingerprint,
   ShieldCheck,
   BarChart3,
   Globe,
@@ -88,16 +87,17 @@ export default function AboutSection() {
           {/* Left Column: Narrative Bio & Status */}
           <div className="lg:col-span-7 space-y-6">
             <div className="p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800/80 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-xl shadow-xl">
-              <div className="flex items-center gap-3.5 mb-6">
-                <div className="p-3 rounded-xl bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-800 shadow-sm shadow-[#C3E41D]/10">
-                  <Fingerprint className="w-6 h-6 transition-transform duration-300 hover:scale-110" style={{ color: "#C3E41D" }} />
+              <div className="mb-6 pb-6 border-b border-neutral-200/80 dark:border-neutral-800/80">
+                <div className="flex items-center gap-2 text-xs font-mono text-[#C3E41D] mb-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C3E41D] shadow-[0_0_8px_#C3E41D]" />
+                  <span>BIOGRAPHY</span>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold font-mono">Rizki Ramadhan</h3>
-                  <p className="text-xs text-neutral-500 font-mono mt-0.5">
-                    Mahasiswa D3 Sistem Informasi • UPN "Veteran" Jakarta
-                  </p>
-                </div>
+                <h3 className="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-neutral-900 dark:text-white">
+                  Rizki Ramadhan
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-500 font-mono mt-1">
+                  Mahasiswa D3 Sistem Informasi • UPN "Veteran" Jakarta
+                </p>
               </div>
 
               <div
