@@ -270,8 +270,11 @@ const DEFAULT_SOCIALS: FooterLink[] = [
 const DEFAULT_LEGAL: FooterLink[] = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
+  { label: "Education", href: "#education" },
+  { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Certificates", href: "#certificates" },
+  { label: "Social Media", href: "#socials" },
 ]
 
 const MONO =
