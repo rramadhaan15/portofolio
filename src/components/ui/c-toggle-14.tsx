@@ -110,7 +110,7 @@ export default function ToggleMuteUnmute({
         ) : (
           <VolumeOffIcon className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
         )}
-        <span className="text-xs font-semibold">{isPlaying ? "2112" : "Muted"}</span>
+        <span className="text-xs font-semibold">{isPlaying ? "Music" : "Muted"}</span>
       </Toggle>
     </div>
   );
