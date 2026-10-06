@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { getAssetUrl } from "@/lib/utils";
 import ToggleMuteUnmute from "@/components/ui/c-toggle-14";
+import { AnimatedNavFramer } from "@/components/ui/navigation-menu";
 
 // Inline Button component
 const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
@@ -89,9 +90,6 @@ const BlurText: React.FC<BlurTextProps> = ({
 export default function Component() {
   const [activeSection, setActiveSection] = useState("HOME");
   const [isDark, setIsDark] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -190,23 +188,6 @@ export default function Component() {
     };
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isMenuOpen &&
-        menuRef.current &&
-        buttonRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isMenuOpen]);
-
   const toggleTheme = () => {
     const newTheme = !isDark;
     setIsDark(newTheme);
@@ -223,20 +204,6 @@ export default function Component() {
     }
   };
 
-  const menuItems = [
-    { label: "HOME", href: "#hero" },
-    { label: "ABOUT", href: "#about" },
-    { label: "EDUCATION", href: "#education" },
-    { label: "EXPERIENCE", href: "#experience" },
-    { label: "PROJECTS", href: "#projects" },
-    { label: "CERTIFICATES", href: "#certificates" },
-    { label: "SOCIAL MEDIA", href: "#socials" },
-  ];
-
-  const isItemActive = (label: string) => {
-    return activeSection === label;
-  };
-
   return (
     <div 
       id="hero"
@@ -246,86 +213,11 @@ export default function Component() {
         color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
       }}
     >
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6">
-        <nav className="relative flex items-center justify-between max-w-screen-2xl mx-auto">
-          {/* Menu Button */}
-          <div className="relative z-10">
-            <button
-              ref={buttonRef}
-              type="button"
-              className="p-2 transition-colors duration-300 z-50 text-neutral-500 hover:text-black dark:hover:text-white"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <X className="w-8 h-8 transition-colors duration-300" strokeWidth={2} />
-              ) : (
-                <Menu className="w-8 h-8 transition-colors duration-300" strokeWidth={2} />
-              )}
-            </button>
-
-            {isMenuOpen && (
-              <div
-                ref={menuRef}
-                className="absolute top-full left-0 w-[200px] md:w-[240px] border-none shadow-2xl mt-2 ml-4 p-4 rounded-lg z-[100]"
-                style={{
-                  backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)",
-                }}
-              >
-                {menuItems.map((item) => {
-                  const isActive = isItemActive(item.label);
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className="block text-lg md:text-xl font-bold tracking-tight py-1.5 px-2 cursor-pointer transition-colors duration-300"
-                      style={{
-                        color: isActive ? "#C3E41D" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "#C3E41D";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = isActive
-                          ? "#C3E41D"
-                          : isDark
-                          ? "hsl(0 0% 100%)"
-                          : "hsl(0 0% 10%)";
-                      }}
-                      onClick={(e) => {
-                        setIsMenuOpen(false);
-                        e.preventDefault();
-                        setActiveSection(item.label);
-                        if (item.href === "#" || item.href === "#hero") {
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        } else {
-                          const target = document.querySelector(item.href);
-                          if (target) {
-                            const scrollTarget = (target.closest(".pin-spacer") as HTMLElement) || target;
-                            scrollTarget.scrollIntoView({ behavior: "smooth" });
-                          }
-                        }
-                      }}
-                    >
-                      {item.label}
-                    </a>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* Signature (Permanently Centered in navbar) */}
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl select-none pointer-events-none"
-            style={{ color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)", fontFamily: "'Brush Script MT', 'Lucida Handwriting', cursive" }}
-          >
-            R
-          </div>
-
-          {/* Controls: Music Mute/Unmute Toggle (Left) & Theme Toggle (Right) */}
-          <div className="relative z-10 flex items-center gap-2 sm:gap-3">
+      {/* Header Controls (Right side: Music & Theme Toggle) */}
+      <header className="fixed top-0 left-0 right-0 z-40 px-6 py-6 pointer-events-none">
+        <nav className="relative flex items-center justify-end max-w-screen-2xl mx-auto">
+          {/* Controls: Music Mute/Unmute Toggle & Theme Toggle */}
+          <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
             <ToggleMuteUnmute size="sm" />
 
             {/* Theme Toggle */}
@@ -347,6 +239,9 @@ export default function Component() {
           </div>
         </nav>
       </header>
+
+      {/* Floating Animated Navigation Menu */}
+      <AnimatedNavFramer activeSection={activeSection} />
 
       {/* Hero Section */}
       <main className="relative min-h-screen flex flex-col overflow-x-hidden">
