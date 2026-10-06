@@ -29,7 +29,7 @@ export default function ToggleMuteUnmute({
     const src = audioSrc || getAssetUrl("/bg-music.mp3");
     const audio = new Audio(src);
     audio.loop = true;
-    audio.volume = 0.65;
+    audio.volume = 0.48;
     audio.preload = "auto";
     audioRef.current = audio;
 
