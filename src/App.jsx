@@ -6,6 +6,7 @@ import ExperienceSection from "@/components/ui/experience-section";
 import ProjectsSection from "@/components/ui/projects-section";
 import CertificatesSection from "@/components/ui/certificates-section";
 import { Component as FlipLinks } from "@/components/ui/flip-links";
+import ShutterGlyphFooter from "@/components/ui/shutter-glyph-footer";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <ProjectsSection />
       <CertificatesSection />
       <FlipLinks />
+      <ShutterGlyphFooter />
     </div>
   );
 }
