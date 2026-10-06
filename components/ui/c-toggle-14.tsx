@@ -19,7 +19,8 @@ export default function ToggleMuteUnmute({
   className = "",
   audioSrc,
 }: ToggleMuteUnmuteProps = {}) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  // Default to playing / unmuted on initial visit
+  const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const userMutedRef = useRef(false);
 
@@ -33,7 +34,11 @@ export default function ToggleMuteUnmute({
     audioRef.current = audio;
 
     const handlePlay = () => setIsPlaying(true);
-    const handlePause = () => setIsPlaying(false);
+    const handlePause = () => {
+      if (userMutedRef.current) {
+        setIsPlaying(false);
+      }
+    };
 
     audio.addEventListener("play", handlePlay);
     audio.addEventListener("pause", handlePause);
@@ -52,7 +57,7 @@ export default function ToggleMuteUnmute({
     // 1. Immediate attempt on page load
     startAudio();
 
-    // 2. Fallback: play on first user interaction anywhere on the website
+    // 2. Play on first user interaction anywhere on the website
     const handleUserGesture = () => {
       if (!userMutedRef.current && audioRef.current && audioRef.current.paused) {
         startAudio();
@@ -62,11 +67,15 @@ export default function ToggleMuteUnmute({
     window.addEventListener("click", handleUserGesture, { passive: true });
     window.addEventListener("touchstart", handleUserGesture, { passive: true });
     window.addEventListener("keydown", handleUserGesture, { passive: true });
+    window.addEventListener("pointerdown", handleUserGesture, { passive: true });
+    window.addEventListener("scroll", handleUserGesture, { passive: true });
 
     return () => {
       window.removeEventListener("click", handleUserGesture);
       window.removeEventListener("touchstart", handleUserGesture);
       window.removeEventListener("keydown", handleUserGesture);
+      window.removeEventListener("pointerdown", handleUserGesture);
+      window.removeEventListener("scroll", handleUserGesture);
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePause);
       audio.pause();
