@@ -292,27 +292,18 @@ const CSS =
   ".sgf-top{box-sizing:border-box;display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,2fr) auto;column-gap:24px;row-gap:36px;padding:clamp(64px,11.5cqw,150px) clamp(16px,2.6cqw,40px) 0}" +
   ".sgf-fade{transition:opacity .8s ease var(--sgf-d,0ms),translate .8s cubic-bezier(.2,.7,.1,1) var(--sgf-d,0ms)}" +
   ".sgf[data-in='false'] .sgf-fade{opacity:0;translate:0 10px}" +
-  // Signup.
-  ".sgf-form{max-width:280px}" +
-  ".sgf-lede{max-width:240px;opacity:.9}" +
-  ".sgf-field{position:relative;display:flex;align-items:center;margin-top:clamp(18px,2.2cqw,26px);padding:4px 0 5px;border-bottom:1px solid var(--sgf-ink)}" +
-  ".sgf-field::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--sgf-ink);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s cubic-bezier(.2,.8,.2,1)}" +
-  ".sgf-field:focus-within::after{transform:scaleX(1)}" +
-  ".sgf-field[data-state='error']{animation:sgf-shake .42s cubic-bezier(.36,.07,.19,.97)}" +
-  "@keyframes sgf-shake{20%,60%{translate:-5px 0}40%,80%{translate:5px 0}}" +
-  ".sgf-input{flex:1;min-width:0;font:inherit;letter-spacing:inherit;text-transform:uppercase;color:inherit;background:transparent;border:0;outline:none;padding:0;margin:0;border-radius:0;-webkit-appearance:none;appearance:none}" +
-  ".sgf-input::placeholder{color:var(--sgf-ink);opacity:.6;transition:opacity .25s}" +
-  ".sgf-input:focus::placeholder{opacity:.3}" +
-  ".sgf-go{flex:none;display:grid;place-items:center;width:26px;height:20px;margin-right:-6px}" +
-  ".sgf-go svg{width:11px;height:11px;transition:translate .35s cubic-bezier(.2,.8,.2,1)}" +
-  ".sgf-go:hover svg,.sgf-go:focus-visible svg{translate:4px 0}" +
-  ".sgf-go:focus-visible{outline:1px dashed var(--sgf-ink);outline-offset:1px}" +
-  ".sgf-spin{display:inline-block;width:1ch;text-align:center}" +
-  ".sgf-done{display:flex;align-items:center;gap:10px}" +
-  ".sgf-done svg{width:12px;height:12px;flex:none}" +
-  ".sgf-done button{margin-left:auto;opacity:.55;transition:opacity .2s}" +
-  ".sgf-done button:hover,.sgf-done button:focus-visible{opacity:1;outline:none;text-decoration:underline;text-underline-offset:3px}" +
-  ".sgf-msg{min-height:1.2em;margin-top:8px;font-size:.86em;opacity:.85}" +
+  // Connect Card.
+  ".sgf-connect{max-width:320px;display:flex;flex-direction:column;gap:12px}" +
+  ".sgf-status{display:inline-flex;align-items:center;gap:8px;font-size:clamp(10.5px,1.05cqw,12px);letter-spacing:.08em;font-weight:600;color:var(--sgf-ink);opacity:.95}" +
+  ".sgf-dot{width:7px;height:7px;border-radius:50%;background:#C3E41D;box-shadow:0 0 10px #C3E41D;animation:sgf-pulse 2s infinite ease-in-out}" +
+  "@keyframes sgf-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}" +
+  ".sgf-connect-lead{line-height:1.45;opacity:.85;font-size:clamp(11.5px,1.15cqw,13px)}" +
+  ".sgf-connect-cta{display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:8px 16px;border:1px solid var(--sgf-ink);border-radius:999px;width:fit-content;color:var(--sgf-ink);font-weight:600;letter-spacing:.05em;transition:all .25s ease;text-decoration:none!important}" +
+  ".sgf-connect-cta:hover{background:var(--sgf-ink);color:var(--sgf-bg);border-color:var(--sgf-ink);transform:translateY(-1px)}" +
+  ".sgf-connect-cta svg{width:11px;height:11px;transition:transform .25s ease}" +
+  ".sgf-connect-cta:hover svg{transform:translateX(3px)}" +
+  ".sgf-connect-meta{font-size:clamp(9.5px,.95cqw,11px);opacity:.6;letter-spacing:.06em;display:flex;gap:6px;align-items:center}" +
+  ".sgf-sep{opacity:.4}" +
   // Links.
   ".sgf-list{display:flex;flex-direction:column;gap:clamp(5px,.6cqw,7px)}" +
   ".sgf-link{position:relative;display:inline-flex;align-items:center;gap:.65em;white-space:nowrap;padding:1px 0}" +
@@ -335,7 +326,7 @@ const CSS =
   ".sgf-g:hover .sgf-up{transform:translate(5px,-1.5px)}" +
   ".sgf-g:hover .sgf-dn{transform:translate(-5px,1.5px)}" +
   ".sgf-sh polygon{transition:none}" +
-  "@container (max-width: 760px){.sgf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.sgf-top>:first-child,.sgf-top>.sgf-copy{grid-column:1 / -1}.sgf-copy{order:3}.sgf-form{max-width:360px}}" +
+  "@container (max-width: 760px){.sgf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.sgf-top>:first-child,.sgf-top>.sgf-copy{grid-column:1 / -1}.sgf-copy{order:3}.sgf-connect{max-width:360px}}" +
   "@container (max-width: 420px){.sgf-top{grid-template-columns:minmax(0,1fr)}}" +
   "@media (prefers-reduced-motion: reduce){.sgf .sgf-rise,.sgf .sgf-fade,.sgf .sgf-half,.sgf .sgf-link svg,.sgf .sgf-link::after,.sgf .sgf-field::after,.sgf .sgf-go svg{transition:none!important}.sgf .sgf-field,.sgf .sgf-flip{animation:none!important}.sgf[data-in='false'] .sgf-rise{transform:none}.sgf[data-in='false'] .sgf-fade{opacity:1;translate:none}}"
 
@@ -550,65 +541,7 @@ export default function ShutterGlyphFooter({
     onLinkClick?.(l.label, l.href)
   }
 
-  // ---- signup ----------------------------------------------------------------
-  const [email, setEmail] = React.useState("")
-  const [state, setState] = React.useState<FormState>("idle")
-  const [shake, setShake] = React.useState(0)
-  const [spin, setSpin] = React.useState(0)
-  const inputRef = React.useRef<HTMLInputElement>(null)
-  const alive = React.useRef(true)
-  React.useEffect(() => {
-    alive.current = true
-    return () => {
-      alive.current = false
-    }
-  }, [])
-
-  React.useEffect(() => {
-    if (shake && state === "error") inputRef.current?.focus()
-  }, [shake])
-
-  React.useEffect(() => {
-    if (state !== "sending" || still) return
-    const id = window.setInterval(() => setSpin((s) => s + 1), 90)
-    return () => window.clearInterval(id)
-  }, [state, still])
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (state === "sending") return
-    if (!isEmail(email)) {
-      setState("error")
-      setShake((n) => n + 1)
-      return
-    }
-    setState("sending")
-    let ok = true
-    try {
-      if (onSubscribe) ok = (await onSubscribe(email.trim())) !== false
-      else await new Promise((r) => setTimeout(r, 900))
-    } catch {
-      ok = false
-    }
-    if (!alive.current) return
-    setState(ok ? "done" : "failed")
-    if (!ok) setShake((n) => n + 1)
-  }
-
-  const reset = () => {
-    setEmail("")
-    setState("idle")
-    requestAnimationFrame(() => inputRef.current?.focus())
-  }
-
-  const message =
-    state === "error"
-      ? "That doesn't look like an email"
-      : state === "failed"
-        ? "Couldn't send. Try again"
-        : state === "sending"
-          ? "Sending"
-          : ""
+  // ---- connect card ----------------------------------------------------------
 
   // ---- render ----------------------------------------------------------------
   const vars = {
@@ -636,55 +569,31 @@ export default function ShutterGlyphFooter({
       <style>{CSS}</style>
 
       <div className="sgf-top">
-        <form className="sgf-form sgf-fade" style={delay()} onSubmit={submit} noValidate>
-          <label htmlFor={"sgf-email-" + uid} className="sgf-lede" style={{ display: "block" }}>
-            {signupLabel}
-          </label>
-          <div className="sgf-field" data-state={state} key={shake}>
-            {state === "done" ? (
-              <div className="sgf-done" role="status">
-                <Check />
-                <span>You&apos;re connected!</span>
-                <button type="button" onClick={reset}>
-                  Undo
-                </button>
-              </div>
-            ) : (
-              <>
-                <input
-                  ref={inputRef}
-                  id={"sgf-email-" + uid}
-                  className="sgf-input"
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  spellCheck={false}
-                  placeholder={placeholder}
-                  value={email}
-                  aria-invalid={state === "error" || undefined}
-                  aria-describedby={"sgf-msg-" + uid}
-                  disabled={state === "sending"}
-                  onChange={(e) => {
-                    setEmail(e.target.value)
-                    if (state === "error" || state === "failed") setState("idle")
-                  }}
-                />
-                <button className="sgf-go" type="submit" aria-label="Subscribe" disabled={state === "sending"}>
-                  {state === "sending" ? (
-                    <span className="sgf-spin" aria-hidden="true">
-                      {still ? "…" : "|/-\\"[spin % 4]}
-                    </span>
-                  ) : (
-                    <Arrow />
-                  )}
-                </button>
-              </>
-            )}
+        <div className="sgf-connect sgf-fade" style={delay()}>
+          <div className="sgf-status">
+            <span className="sgf-dot" aria-hidden="true" />
+            <span>Available for new opportunities</span>
           </div>
-          <p id={"sgf-msg-" + uid} className="sgf-msg" aria-live="polite">
-            {message}
+
+          <p className="sgf-connect-lead">
+            Have a project in mind or looking for a developer? Let&apos;s build something great together.
           </p>
-        </form>
+
+          <a
+            href="mailto:rizkiramadhan2175@gmail.com"
+            className="sgf-connect-cta"
+            aria-label="Send email to rizkiramadhan2175@gmail.com"
+          >
+            <span>Let&apos;s talk</span>
+            <Arrow />
+          </a>
+
+          <p className="sgf-connect-meta">
+            <span>Based in Indonesia</span>
+            <span className="sgf-sep">/</span>
+            <span>Remote Worldwide</span>
+          </p>
+        </div>
 
         {socials.length > 0 && (
           <nav aria-label="Social">
