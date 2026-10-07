@@ -47,7 +47,7 @@ export default function EducationSection() {
               staggerDuration={0.018}
               transition={{ duration: 0.25 }}
             >
-              {"Mendalami perancangan sistem informasi terintegrasi, arsitektur aplikasi berbasis web modern, keamanan siber (__Cybersecurity__), dan analisis data (__Business Intelligence__) untuk solusi teknologi efisien."}
+              {"Merancang sistem informasi terintegrasi, membangun aplikasi web modern, mengamankan infrastruktur data, dan mengubah data menjadi insight bisnis lewat Business Intelligence."}
             </TextGenerateEffect>
 
             {/* Core Competencies Learned */}
