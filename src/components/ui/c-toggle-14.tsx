@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Volume2Icon, VolumeOffIcon } from "lucide-react";
-
-import { Toggle } from "@/components/ui/toggle";
-import { getAssetUrl } from "@/lib/utils";
+import { VolumeOffIcon } from "lucide-react";
+import { motion } from "framer-motion";
+import { getAssetUrl, cn } from "@/lib/utils";
 
 interface ToggleMuteUnmuteProps {
   size?: "default" | "sm" | "lg";
@@ -13,9 +12,22 @@ interface ToggleMuteUnmuteProps {
   audioSrc?: string;
 }
 
+const EqualizerBar = ({ delay, duration }: { delay: number; duration: number }) => (
+  <motion.span
+    className="w-[2px] bg-[#C3E41D] rounded-full inline-block origin-bottom"
+    animate={{ height: ["4px", "14px", "6px", "12px", "4px"] }}
+    transition={{
+      repeat: Infinity,
+      repeatType: "mirror",
+      duration,
+      delay,
+      ease: "easeInOut",
+    }}
+  />
+);
+
 export default function ToggleMuteUnmute({
   size = "sm",
-  variant = "outline",
   className = "",
   audioSrc,
 }: ToggleMuteUnmuteProps = {}) {
@@ -46,12 +58,15 @@ export default function ToggleMuteUnmute({
     // Safely attempt audio playback
     const startAudio = () => {
       if (!audioRef.current || userMutedRef.current) return;
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch((err) => {
-        // Modern browser autoplay policy: blocked until first user gesture
-        console.log("Autoplay waiting for user gesture:", err);
-      });
+      audioRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((err) => {
+          // Modern browser autoplay policy: blocked until first user gesture
+          console.log("Autoplay waiting for user gesture:", err);
+        });
     };
 
     // 1. Immediate attempt on page load
@@ -104,23 +119,52 @@ export default function ToggleMuteUnmute({
   }, []);
 
   return (
-    <div className={`flex items-center justify-center ${className}`}>
-      <Toggle
-        size={size}
-        variant={variant}
-        aria-label="Toggle mute"
-        title={isPlaying ? "Playing: Reality Club - 2112 (Click to mute)" : "Click to play Reality Club - 2112"}
-        pressed={isPlaying}
-        onPressedChange={toggleSound}
-        className="cursor-pointer select-none transition-all duration-300 rounded-full min-w-[88px] h-8 px-3 gap-1.5"
+    <div className={cn("flex items-center justify-center", className)}>
+      <button
+        type="button"
+        onClick={toggleSound}
+        aria-label="Toggle music playback"
+        title={
+          isPlaying
+            ? "Playing: Reality Club - 2112 (Click to mute)"
+            : "Click to play Reality Club - 2112"
+        }
+        className={cn(
+          "group relative inline-flex items-center justify-center rounded-full select-none cursor-pointer",
+          "backdrop-blur-md transition-all duration-300 ease-out",
+          "border shadow-sm active:scale-95",
+          size === "sm"
+            ? "h-8 px-3 gap-2"
+            : size === "lg"
+            ? "h-10 px-4 gap-2.5"
+            : "h-9 px-3.5 gap-2",
+          isPlaying
+            ? "bg-background/80 border-[#C3E41D]/40 text-foreground hover:border-[#C3E41D] hover:shadow-[0_0_12px_rgba(195,228,29,0.22)]"
+            : "bg-background/60 border-border/80 text-muted-foreground hover:text-foreground hover:border-foreground/30 hover:bg-background/80"
+        )}
       >
         {isPlaying ? (
-          <Volume2Icon className="w-3.5 h-3.5 text-[#C3E41D] animate-pulse shrink-0" />
+          <div className="flex items-center gap-2">
+            {/* Animated Equalizer Wave */}
+            <div className="flex items-end gap-[2px] h-3.5">
+              <EqualizerBar delay={0} duration={0.8} />
+              <EqualizerBar delay={0.15} duration={0.65} />
+              <EqualizerBar delay={0.3} duration={0.9} />
+              <EqualizerBar delay={0.1} duration={0.75} />
+            </div>
+            <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-foreground">
+              Music
+            </span>
+          </div>
         ) : (
-          <VolumeOffIcon className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+          <div className="flex items-center gap-1.5">
+            <VolumeOffIcon className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+            <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-muted-foreground group-hover:text-foreground transition-colors">
+              Muted
+            </span>
+          </div>
         )}
-        <span className="text-xs font-semibold">{isPlaying ? "Music" : "Muted"}</span>
-      </Toggle>
+      </button>
     </div>
   );
 }
