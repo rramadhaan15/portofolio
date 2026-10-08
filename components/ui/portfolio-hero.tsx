@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { getAssetUrl } from "@/lib/utils";
 import ToggleMuteUnmute from "@/components/ui/c-toggle-14";
 import { AnimatedNavFramer } from "@/components/ui/navigation-menu";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 // Inline Button component
 const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
@@ -221,21 +222,7 @@ export default function Component() {
             <ToggleMuteUnmute size="sm" />
 
             {/* Theme Toggle */}
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="relative w-16 h-8 rounded-full hover:opacity-80 transition-opacity"
-              style={{ backgroundColor: isDark ? "hsl(0 0% 15%)" : "hsl(0 0% 90%)" }}
-              aria-label="Toggle theme"
-            >
-              <div
-                className="absolute top-1 left-1 w-6 h-6 rounded-full transition-transform duration-300"
-                style={{
-                  backgroundColor: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
-                  transform: isDark ? "translateX(2rem)" : "translateX(0)",
-                }}
-              />
-            </button>
+            <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
           </div>
         </nav>
       </header>
