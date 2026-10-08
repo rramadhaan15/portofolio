@@ -26,7 +26,7 @@ export default function EducationSection() {
               <h4 className="text-xl md:text-2xl font-bold font-mono text-neutral-900 dark:text-white">
                 Universitas Pembangunan Nasional "Veteran" Jakarta
               </h4>
-              <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 font-mono mt-1">
+              <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 font-sans font-medium mt-1">
                 D3 Sistem Informasi • Fakultas Ilmu Komputer
               </p>
 
@@ -114,7 +114,7 @@ export default function EducationSection() {
               <h4 className="text-xl md:text-2xl font-bold font-mono text-neutral-900 dark:text-white">
                 SMAN 22 Jakarta
               </h4>
-              <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 font-mono mt-1">
+              <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 font-sans font-medium mt-1">
                 Sekolah Menengah Atas Negeri 22 Jakarta
               </p>
 
