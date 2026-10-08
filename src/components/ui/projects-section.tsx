@@ -131,7 +131,7 @@ export interface ProjectsSectionProps extends React.HTMLAttributes<HTMLDivElemen
 }
 
 export function ProjectsSection({
-  tagline1 = "Explore the craft,",
+  tagline1 = "Crafted with precision,",
   tagline2 = "engineered to scale.",
   className,
   id = "projects",

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { cn } from "@/lib/utils";
+import { cn, getAssetUrl } from "@/lib/utils";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -131,7 +131,7 @@ export interface ProjectsSectionProps extends React.HTMLAttributes<HTMLDivElemen
 }
 
 export function ProjectsSection({
-  tagline1 = "Explore the craft,",
+  tagline1 = "Crafted with precision,",
   tagline2 = "engineered to scale.",
   className,
   id = "projects",
@@ -354,7 +354,7 @@ export function ProjectsSection({
       </div>
 
       {/* TOP FLOATING PROJECT STEPPER PILL */}
-      <div className="project-stepper absolute top-6 sm:top-8 z-30 flex items-center gap-3 px-4 py-1.5 rounded-full bg-black/70 backdrop-blur-xl border border-white/10 shadow-2xl font-mono text-xs text-neutral-300 pointer-events-none">
+      <div className="project-stepper absolute top-20 sm:top-24 md:top-28 z-30 flex items-center gap-3 px-4 py-1.5 rounded-full bg-black/75 backdrop-blur-xl border border-white/10 shadow-2xl font-mono text-xs text-neutral-300 pointer-events-none">
         <span className="text-[#C3E41D] font-bold text-[10px] tracking-widest uppercase">PROJECT SHOWCASE</span>
         <span className="text-white/20">|</span>
         <div className="flex items-center gap-1.5">
@@ -445,7 +445,7 @@ export function ProjectsSection({
                       {/* Project Screenshot */}
                       <div className="relative w-full flex-1 overflow-hidden bg-neutral-950 flex flex-col justify-between group">
                         <img
-                          src="/project-internesia.png"
+                          src={getAssetUrl("/project-internesia.png")}
                           alt="Internesia - Platform Magang & Pelacak Lamaran"
                           className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                           loading="eager"
@@ -640,7 +640,7 @@ export function ProjectsSection({
                       {/* Project Screenshot */}
                       <div className="relative w-full flex-1 overflow-hidden bg-neutral-950 flex flex-col justify-between group">
                         <img
-                          src="/project-padel-prime.png"
+                          src={getAssetUrl("/project-padel-prime.png")}
                           alt="Padel Prime - Reservasi Lapangan Padel Online Cepat"
                           className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                           loading="eager"
