@@ -37,7 +37,7 @@ export const Component = () => {
       <div className="text-center mb-8 relative z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neutral-300 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md text-xs font-mono tracking-widest uppercase">
           <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: "#C3E41D" }} />
-          <span style={{ color: "#C3E41D" }}>06 // SOCIAL MEDIA & CONNECT</span>
+          <span style={{ color: "#C3E41D" }}>06 // SOCIAL MEDIA</span>
         </div>
         <p className="text-xs sm:text-sm font-mono text-neutral-500 mt-2">
           Terbuka untuk kolaborasi dan diskusi, hubungi saya lewat platform berikut.
