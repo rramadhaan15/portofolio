@@ -138,10 +138,10 @@ export function CertificatesSection({
           </h2>
 
           <p className="text-sm sm:text-base md:text-lg text-neutral-600 dark:text-neutral-400 font-sans leading-relaxed">
-            Koleksi sertifikasi profesional, kompetensi terverifikasi, dan lisensi terakreditasi dalam bidang{" "}
-            <span className="text-neutral-900 dark:text-white font-semibold">Generative AI</span>,{" "}
-            <span className="text-neutral-900 dark:text-white font-semibold">Data Analytics</span>, serta{" "}
-            <span className="text-neutral-900 dark:text-white font-semibold">Code Optimization</span>.
+            Standar kompetensi dan keahlian terverifikasi industri dalam ekosistem{" "}
+            <span className="font-semibold text-[#a8cc0e] dark:text-[#C3E41D]">Generative AI</span>,{" "}
+            <span className="font-semibold text-[#a8cc0e] dark:text-[#C3E41D]">Data Analytics</span>, hingga{" "}
+            <span className="font-semibold text-[#a8cc0e] dark:text-[#C3E41D]">Code Optimization</span>.
           </p>
         </div>
 
