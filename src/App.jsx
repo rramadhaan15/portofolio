@@ -18,9 +18,10 @@ export default function App() {
 
     // Initialize silky-smooth momentum scrolling
     const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      autoRaf: true,
+      lerp: 0.1,
       smoothWheel: true,
+      wheelMultiplier: 1.0,
       touchMultiplier: 1.5,
     });
 
@@ -29,17 +30,13 @@ export default function App() {
     // Sync Lenis scroll with GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
-    // Drive Lenis RAF inside GSAP ticker for frame-perfect animation sync
-    const updateTicker = (time) => {
-      lenis.raf(time * 1000);
-    };
-    gsap.ticker.add(updateTicker);
-
-    // Turn off lagSmoothing to eliminate stutter/jumps during scrubbed scroll
-    gsap.ticker.lagSmoothing(0);
+    // Refresh ScrollTrigger to ensure all pin spacers match exact layout
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 250);
 
     return () => {
-      gsap.ticker.remove(updateTicker);
+      clearTimeout(timer);
       lenis.destroy();
       delete window.__lenis;
     };

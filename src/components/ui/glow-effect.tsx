@@ -45,10 +45,7 @@ export function GlowEffect({
 
   const animations = {
     rotate: {
-      background: [
-        `conic-gradient(from 0deg at 50% 50%, ${colors.join(', ')})`,
-        `conic-gradient(from 360deg at 50% 50%, ${colors.join(', ')})`,
-      ],
+      rotate: [0, 360],
       transition: {
         ...(transition ?? BASE_TRANSITION),
       },
@@ -134,6 +131,7 @@ export function GlowEffect({
       style={
         {
           ...style,
+          background: mode === 'rotate' ? `conic-gradient(from 0deg at 50% 50%, ${colors.join(', ')})` : style?.background,
           '--scale': scale,
           willChange: 'transform',
           backfaceVisibility: 'hidden',

@@ -15,8 +15,7 @@ const INJECTED_STYLES = `
   /* Environment Overlays */
   .film-grain {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 50; opacity: 0.05; mix-blend-mode: overlay;
-      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+      pointer-events: none; z-index: 50; opacity: 0.02;
   }
 
   .bg-grid-theme {
@@ -226,9 +225,9 @@ export function ProjectsSection({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=7600",
+          end: "+=3600",
           pin: true,
-          scrub: 0.6,
+          scrub: true,
           anticipatePin: 1,
         },
       });
@@ -255,7 +254,7 @@ export function ProjectsSection({
         .fromTo(".card-right-text-1", { x: 40, autoAlpha: 0, scale: 0.85 }, { x: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 1.2 }, "<")
         
         // HOLD on Project 1
-        .to({}, { duration: 2.8 })
+        .to({}, { duration: 0.8 })
 
         // PHASE 2: Transition from Project 1 to Project 2
         .to([".mockup-scroll-wrapper-1", ".floating-badge-1", ".card-left-text-1", ".card-right-text-1"], {
@@ -299,7 +298,7 @@ export function ProjectsSection({
         .fromTo(".card-right-text-2", { x: 40, autoAlpha: 0, scale: 0.85 }, { x: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 1.2 }, "<")
 
         // HOLD on Project 2
-        .to({}, { duration: 2.8 })
+        .to({}, { duration: 0.8 })
 
         // PHASE 4: Exit Card 2 upwards to Social Media
         .to([".mockup-scroll-wrapper-2", ".floating-badge-2", ".card-left-text-2", ".card-right-text-2", ".project-stepper"], {
