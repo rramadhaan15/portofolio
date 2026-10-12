@@ -15,7 +15,8 @@ const INJECTED_STYLES = `
   /* Environment Overlays */
   .film-grain {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 50; opacity: 0.02;
+      pointer-events: none; z-index: 50; opacity: 0.05; mix-blend-mode: overlay;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
   }
 
   .bg-grid-theme {
@@ -146,11 +147,6 @@ export function ProjectsSection({
   // 1. Interactive 3D Mouse Tilt Logic for both laptop bodies
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Performance guard: Only compute when container is visible in viewport!
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-
       cancelAnimationFrame(requestRef.current);
 
       requestRef.current = requestAnimationFrame(() => {
@@ -189,7 +185,7 @@ export function ProjectsSection({
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(requestRef.current);
@@ -225,17 +221,16 @@ export function ProjectsSection({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=3600",
+          end: "+=7600",
           pin: true,
-          scrub: true,
+          scrub: 1,
           anticipatePin: 1,
         },
       });
 
       scrollTl
-        // PHASE 1: Intro texts fade & Card 1 (Internesia) enters (hardware-accelerated, no heavy filter blur)
-        .to(".hero-text-wrapper", { scale: 1.1, opacity: 0, y: -40, ease: "power2.inOut", duration: 1.5 }, 0)
-        .to(".bg-grid-theme", { opacity: 0.2, ease: "power2.inOut", duration: 1.5 }, 0)
+        // PHASE 1: Intro texts fade & Card 1 (Internesia) enters
+        .to([".hero-text-wrapper", ".bg-grid-theme"], { scale: 1.15, filter: "blur(20px)", opacity: 0.2, ease: "power2.inOut", duration: 1.5 }, 0)
         .to(".main-card-1", { y: 0, ease: "power3.inOut", duration: 1.8 }, 0)
         .to(".project-stepper", { autoAlpha: 1, y: 0, ease: "power2.out", duration: 1 }, 0.4)
         .fromTo(
@@ -254,7 +249,7 @@ export function ProjectsSection({
         .fromTo(".card-right-text-1", { x: 40, autoAlpha: 0, scale: 0.85 }, { x: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 1.2 }, "<")
         
         // HOLD on Project 1
-        .to({}, { duration: 0.8 })
+        .to({}, { duration: 2.8 })
 
         // PHASE 2: Transition from Project 1 to Project 2
         .to([".mockup-scroll-wrapper-1", ".floating-badge-1", ".card-left-text-1", ".card-right-text-1"], {
@@ -298,7 +293,7 @@ export function ProjectsSection({
         .fromTo(".card-right-text-2", { x: 40, autoAlpha: 0, scale: 0.85 }, { x: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 1.2 }, "<")
 
         // HOLD on Project 2
-        .to({}, { duration: 0.8 })
+        .to({}, { duration: 2.8 })
 
         // PHASE 4: Exit Card 2 upwards to Social Media
         .to([".mockup-scroll-wrapper-2", ".floating-badge-2", ".card-left-text-2", ".card-right-text-2", ".project-stepper"], {

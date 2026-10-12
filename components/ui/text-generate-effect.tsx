@@ -63,7 +63,7 @@ export const TextGenerateEffect = ({
   as: Component = "p",
   transition,
   trigger = true,
-  once = true,
+  once = false,
 }: TextGenerateEffectProps) => {
   const content = typeof children === "string" ? children : words || "";
   const wordsArray = parseContent(content);

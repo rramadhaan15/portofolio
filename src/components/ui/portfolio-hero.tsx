@@ -104,29 +104,20 @@ export default function Component() {
   }, []);
 
   useEffect(() => {
-    let ticking = false;
-    let lastSection = "HOME";
-
-    const updateActiveSection = () => {
+    const handleScroll = () => {
       const scrollY = window.scrollY;
       const viewportHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
       // 1. Extreme Top Boundary (Hero / Home)
       if (scrollY < 120) {
-        if (lastSection !== "HOME") {
-          lastSection = "HOME";
-          setActiveSection("HOME");
-        }
+        setActiveSection("HOME");
         return;
       }
 
       // 2. Extreme Bottom Boundary (Social Media / Contact)
       if (scrollY + viewportHeight >= documentHeight - 120) {
-        if (lastSection !== "SOCIAL MEDIA") {
-          lastSection = "SOCIAL MEDIA";
-          setActiveSection("SOCIAL MEDIA");
-        }
+        setActiveSection("SOCIAL MEDIA");
         return;
       }
 
@@ -157,10 +148,7 @@ export default function Component() {
 
         // Check if focus point is vertically inside this section
         if (rect.top <= focusPoint && rect.bottom > focusPoint) {
-          if (lastSection !== name) {
-            lastSection = name;
-            setActiveSection(name);
-          }
+          setActiveSection(name);
           return;
         }
       }
@@ -183,19 +171,8 @@ export default function Component() {
         }
       }
 
-      if (maxVisible > 0 && lastSection !== dominantSection) {
-        lastSection = dominantSection;
+      if (maxVisible > 0) {
         setActiveSection(dominantSection);
-      }
-    };
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateActiveSection();
-          ticking = false;
-        });
-        ticking = true;
       }
     };
 
@@ -203,7 +180,7 @@ export default function Component() {
     window.addEventListener("resize", handleScroll, { passive: true });
 
     // Initial check after slight delay to allow GSAP pins to register
-    const timer = setTimeout(updateActiveSection, 300);
+    const timer = setTimeout(handleScroll, 300);
 
     return () => {
       clearTimeout(timer);
@@ -315,14 +292,7 @@ export default function Component() {
         {/* Scroll Indicator */}
         <button
           type="button"
-          onClick={() => {
-            const target = document.getElementById("about");
-            if ((window as any).__lenis && target) {
-              (window as any).__lenis.scrollTo(target, { duration: 1.2 });
-            } else {
-              target?.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
+          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
           className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 transition-all duration-300 cursor-pointer animate-bounce hover:scale-125"
           aria-label="Scroll down to About"
         >

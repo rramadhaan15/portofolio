@@ -535,11 +535,7 @@ export default function ShutterGlyphFooter({
       const target = document.querySelector(l.href)
       if (target) {
         const scrollTarget = (target.closest(".pin-spacer") as HTMLElement) || target
-        if ((window as any).__lenis) {
-          (window as any).__lenis.scrollTo(scrollTarget, { duration: 1.2 });
-        } else {
-          scrollTarget.scrollIntoView({ behavior: "smooth" })
-        }
+        scrollTarget.scrollIntoView({ behavior: "smooth" })
       }
     }
     onLinkClick?.(l.label, l.href)
