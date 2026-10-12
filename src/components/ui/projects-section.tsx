@@ -147,6 +147,11 @@ export function ProjectsSection({
   // 1. Interactive 3D Mouse Tilt Logic for both laptop bodies
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      // Performance guard: Only compute when container is visible in viewport!
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
       cancelAnimationFrame(requestRef.current);
 
       requestRef.current = requestAnimationFrame(() => {
@@ -185,7 +190,7 @@ export function ProjectsSection({
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(requestRef.current);
@@ -223,14 +228,15 @@ export function ProjectsSection({
           start: "top top",
           end: "+=7600",
           pin: true,
-          scrub: 1,
+          scrub: 0.6,
           anticipatePin: 1,
         },
       });
 
       scrollTl
-        // PHASE 1: Intro texts fade & Card 1 (Internesia) enters
-        .to([".hero-text-wrapper", ".bg-grid-theme"], { scale: 1.15, filter: "blur(20px)", opacity: 0.2, ease: "power2.inOut", duration: 1.5 }, 0)
+        // PHASE 1: Intro texts fade & Card 1 (Internesia) enters (hardware-accelerated, no heavy filter blur)
+        .to(".hero-text-wrapper", { scale: 1.1, opacity: 0, y: -40, ease: "power2.inOut", duration: 1.5 }, 0)
+        .to(".bg-grid-theme", { opacity: 0.2, ease: "power2.inOut", duration: 1.5 }, 0)
         .to(".main-card-1", { y: 0, ease: "power3.inOut", duration: 1.8 }, 0)
         .to(".project-stepper", { autoAlpha: 1, y: 0, ease: "power2.out", duration: 1 }, 0.4)
         .fromTo(

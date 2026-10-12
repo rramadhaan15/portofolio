@@ -131,13 +131,21 @@ export function AnimatedNavFramer({
     }
 
     if (href === "#" || href === "#hero") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if ((window as any).__lenis) {
+        (window as any).__lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } else {
       const target = document.querySelector(href);
       if (target) {
         const scrollTarget =
           (target.closest(".pin-spacer") as HTMLElement) || target;
-        scrollTarget.scrollIntoView({ behavior: "smooth" });
+        if ((window as any).__lenis) {
+          (window as any).__lenis.scrollTo(scrollTarget, { duration: 1.2 });
+        } else {
+          scrollTarget.scrollIntoView({ behavior: "smooth" });
+        }
       }
     }
   };
@@ -162,7 +170,11 @@ export function AnimatedNavFramer({
           className="flex-shrink-0 flex items-center justify-center pl-4 pr-2 cursor-pointer select-none"
           onClick={(e) => {
             e.stopPropagation();
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            if ((window as any).__lenis) {
+              (window as any).__lenis.scrollTo(0, { duration: 1.2 });
+            } else {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
           }}
           title="Rizki Ramadhan"
         >
